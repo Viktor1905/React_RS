@@ -25,18 +25,15 @@ class App extends Component<object, AppState> {
     this.state = {
       result: storage,
       loading: false,
-      hasError: false
+      hasError: false,
     };
   }
   componentDidMount() {
     this.handleSearch('luffy');
   }
-  setHasError = (hasError: boolean) => {
-    this.setState({ hasError });
-  };
+
   handleSearch: (query: string) => void = (query: string) => {
     this.setState({ loading: true });
-    console.log(this.state.loading);
     setTimeout(
       () =>
         requestApi(query).then((data) => {
@@ -49,13 +46,10 @@ class App extends Component<object, AppState> {
   render() {
     return (
       <>
-        <ErrorBoundary
-          hasError={this.state.hasError}
-          setHasError={this.setHasError}
-        >
+        <ErrorBoundary>
           <Header onSearch={this.handleSearch} />
           <Main result={this.state.result} loading={this.state.loading} />
-          <ErrorBtn onClick={()=>this.setHasError(true)} />
+          <ErrorBtn />
         </ErrorBoundary>
       </>
     );

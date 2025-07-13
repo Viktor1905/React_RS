@@ -1,5 +1,5 @@
 import styles from '@/components/Header/styles/header.module.css';
-import { Component, type ReactElement } from 'react';
+import { type ChangeEvent, Component, type FormEvent, type ReactElement } from 'react';
 
 export class Header extends Component<
   { onSearch: (q: string) => void },
@@ -12,11 +12,11 @@ export class Header extends Component<
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+  handleChange(event: ChangeEvent<HTMLInputElement>) {
     this.setState({ query: event.target.value });
   }
 
-  handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     localStorage.setItem('query', this.state.query);
     this.props.onSearch(this.state.query);
