@@ -1,0 +1,17 @@
+header {
+  max-width: 1440px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.form {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  height: 30px;
+}
+.input {
+}
+.button {
+}
