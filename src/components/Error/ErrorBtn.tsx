@@ -1,7 +1,10 @@
-export function ErrorBtn() {
+export function ErrorBtn({onClick}: ErrorBtnProps ): React.ReactElement {
   return (
     <>
-      <button>Error</button>
+      <button onClick={onClick}>Error</button>
     </>
   );
+}
+interface ErrorBtnProps {
+  onClick: () => void;
 }

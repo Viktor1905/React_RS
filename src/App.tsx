@@ -5,10 +5,12 @@ import { ErrorBtn } from './components/Error/ErrorBtn.tsx';
 import { Component } from 'react';
 import { type AnimeCharacterResponse, requestApi } from './api/api.ts';
 import { isAnimeCharacterResponse } from './api/isAnimeCharacterArray.ts';
+import { ErrorBoundary } from './components/Error/ErrorBoundary.tsx';
 
 interface AppState {
   result: AnimeCharacterResponse | null;
   loading: boolean;
+  hasError: boolean;
 }
 class App extends Component<object, AppState> {
   constructor(props: object) {
@@ -23,11 +25,15 @@ class App extends Component<object, AppState> {
     this.state = {
       result: storage,
       loading: false,
+      hasError: false
     };
   }
   componentDidMount() {
     this.handleSearch('luffy');
   }
+  setHasError = (hasError: boolean) => {
+    this.setState({ hasError });
+  };
   handleSearch: (query: string) => void = (query: string) => {
     this.setState({ loading: true });
     console.log(this.state.loading);
@@ -43,9 +49,14 @@ class App extends Component<object, AppState> {
   render() {
     return (
       <>
-        <Header onSearch={this.handleSearch} />
-        <Main result={this.state.result} loading={this.state.loading} />
-        <ErrorBtn />
+        <ErrorBoundary
+          hasError={this.state.hasError}
+          setHasError={this.setHasError}
+        >
+          <Header onSearch={this.handleSearch} />
+          <Main result={this.state.result} loading={this.state.loading} />
+          <ErrorBtn onClick={()=>this.setHasError(true)} />
+        </ErrorBoundary>
       </>
     );
   }
