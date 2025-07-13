@@ -7,7 +7,7 @@ import { type AnimeCharacterResponse, requestApi } from './api/api.ts';
 import { isAnimeCharacterResponse } from './api/isAnimeCharacterArray.ts';
 
 interface AppState {
-  result: AnimeCharacterResponse | null;
+  result: AnimeCharacterResponse | any;
   loading: boolean;
 }
 class App extends Component<object, AppState> {
