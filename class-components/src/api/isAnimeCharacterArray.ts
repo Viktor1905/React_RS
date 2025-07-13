@@ -10,7 +10,7 @@ export function isAnimeCharacterResponse(
   if (!Array.isArray(obj.data)) return false;
 
   return obj.data.every((item: unknown): item is AnimeCharacter => {
-    if (typeof item !== 'object' || item === null) return false;
+    if (typeof item !== 'object' || item === any) return false;
 
     const char = item as Record<string, unknown>;
 
