@@ -12,7 +12,7 @@ export class CharacterCard extends Component<CardState> {
         <img
           src={this.props.character.images.jpg.image_url}
           className={styles.img}
-          alt='image'
+          alt="image"
         />
         <div>{this.props.character.name}</div>
         <div>

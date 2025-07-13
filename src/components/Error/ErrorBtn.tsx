@@ -2,9 +2,9 @@ import { Component, type ReactElement } from 'react';
 interface ErrorBtnState {
   shouldThrow: boolean;
 }
-export class ErrorBtn extends Component<object, ErrorBtnState>{
+export class ErrorBtn extends Component<object, ErrorBtnState> {
   state: ErrorBtnState = {
-    shouldThrow: false
+    shouldThrow: false,
   };
 
   triggerError = (): void => {

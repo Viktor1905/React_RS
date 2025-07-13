@@ -1,5 +1,10 @@
 import styles from '@/components/Header/styles/header.module.css';
-import { type ChangeEvent, Component, type FormEvent, type ReactElement } from 'react';
+import {
+  type ChangeEvent,
+  Component,
+  type FormEvent,
+  type ReactElement,
+} from 'react';
 
 export class Header extends Component<
   { onSearch: (q: string) => void },

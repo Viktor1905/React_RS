@@ -22,9 +22,11 @@ export class Main extends Component<MainState> {
       <main className={styles.wrapper}>
         {isEmpty ? (
           <ul className={styles.list}>
-            {result.data.map((char: AnimeCharacter): ReactElement => (
-              <CharacterCard key={char.url} character={char}></CharacterCard>
-            ))}
+            {result.data.map(
+              (char: AnimeCharacter): ReactElement => (
+                <CharacterCard key={char.url} character={char}></CharacterCard>
+              )
+            )}
           </ul>
         ) : (
           <p>No data</p>
