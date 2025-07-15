@@ -32,7 +32,7 @@ class App extends Component<object, AppState> {
     };
   }
   componentDidMount() {
-    this.handleSearch('luffy');
+    if (!localStorage.getItem('result')) this.handleSearch('luffy');
   }
 
   handleSearch: (query: string) => void = (query: string) => {
