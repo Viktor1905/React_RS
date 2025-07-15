@@ -28,7 +28,7 @@ class App extends Component<object, AppState> {
       result: storage,
       loading: false,
       hasError: false,
-      error: null
+      error: null,
     };
   }
   componentDidMount() {
@@ -39,15 +39,18 @@ class App extends Component<object, AppState> {
     this.setState({ loading: true, error: null });
     setTimeout(
       () =>
-        requestApi(query).then((data) => {
-          localStorage.setItem('result', JSON.stringify(data));
-          return this.setState({ result: data, loading: false });
-        }).catch((error: unknown): void => {
-          this.setState({
-            error: error instanceof Error ? error : new Error('Unknown error'),
-            loading: false
-          });
-        }),
+        requestApi(query)
+          .then((data) => {
+            localStorage.setItem('result', JSON.stringify(data));
+            return this.setState({ result: data, loading: false });
+          })
+          .catch((error: unknown): void => {
+            this.setState({
+              error:
+                error instanceof Error ? error : new Error('Unknown error'),
+              loading: false,
+            });
+          }),
       1000
     );
   };
@@ -55,7 +58,9 @@ class App extends Component<object, AppState> {
     const { result, loading, error } = this.state;
 
     if (error) {
-      return <ErrorPage error={error} onRetry={() => this.handleSearch('luffy')} />;
+      return (
+        <ErrorPage error={error} onRetry={() => this.handleSearch('luffy')} />
+      );
     }
 
     return <Main result={result} loading={loading} />;

@@ -16,7 +16,12 @@ export class ErrorBtn extends Component<object, ErrorBtnState> {
     }
     return (
       <>
-        <button style={{ marginTop: '20px' }} onClick={() => this.triggerError()}>Error</button>
+        <button
+          style={{ marginTop: '20px' }}
+          onClick={() => this.triggerError()}
+        >
+          Error
+        </button>
       </>
     );
   }
