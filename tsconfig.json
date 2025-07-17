@@ -4,10 +4,14 @@
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
   ],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "compilerOptions": {
     "baseUrl": ".",
+    "types": ["vitest/globals"],
+    "jsx": "react-jsx",
     "paths": {
       "@features/*": ["src/features/*"]
-    }
+    },
+
   }
 }

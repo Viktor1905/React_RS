@@ -1,12 +1,24 @@
-import { defineConfig } from 'vitest/config'
+import { defineConfig } from 'vitest/config';
+import path from 'path';
 
 export default defineConfig({
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'), // путь до src
+    },
+  },
   test: {
+    globals: true,
+    environment: 'jsdom',
     coverage: {
-      provider: 'v8',
-      include: ['tests/**/*.spec.ts', 'tests/**/*.spec.tsx', 'tests/**/*.test.ts', 'tests/**/*.test.tsx',],
+        provider: 'v8',
+      include: [
+        'tests/**/*.spec.ts',
+        'tests/**/*.spec.tsx',
+        'tests/**/*.test.ts',
+        'tests/**/*.test.tsx',
+      ],
       exclude: ['**/node_modules/**', '**/.husky/**', '**/.idea/**'],
-      environment: 'jsdom',
       thresholds: {
         statements: 80,
         branches: 50,
@@ -15,4 +27,4 @@ export default defineConfig({
       },
     },
   },
-})
+});
