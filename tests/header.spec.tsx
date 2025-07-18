@@ -4,36 +4,36 @@ import { Header } from '../src/components/Header/Header';
 import '@testing-library/jest-dom/vitest';
 import type { RenderResult } from '@testing-library/react';
 
-describe('header component', () => {
+describe('header component', (): void => {
   let headerElement: RenderResult;
-  beforeEach(() => {
+  beforeEach((): void => {
     headerElement = render(
       <Header
-        onSearch={(query: string) => {
+        onSearch={(query: string): string => {
           localStorage.setItem('query', query);
           return query;
         }}
       />
     );
   });
-  test('should render header', () => {
+  test('should render header', (): void => {
     expect(screen.getByRole('banner')).toBeInTheDocument();
   });
-  test('header has h1 components with text: Search anime character', () => {
+  test('header has h1 components with text: Search anime character', (): void => {
     expect(headerElement.getByRole('heading', { level: 1 })).toHaveTextContent(
       'Search anime character'
     );
   });
-  test('header has input with placeholder: What you search?', () => {
+  test('header has input with placeholder: What you search?', (): void => {
     expect(headerElement.getByPlaceholderText('What you search?'));
   });
-  test('header has button type: submit and text: Search', () => {
-    const button = headerElement.getByRole('button', { name: /Search/i });
+  test('header has button type: submit and text: Search', (): void => {
+    const button: HTMLElement = headerElement.getByRole('button', { name: /Search/i });
     expect(button).toHaveAttribute('type', 'submit');
   });
-  test('input has changed and button is clicked', () => {
-    const button = headerElement.getByRole('button', { name: /Search/i });
-    const input = headerElement.getByPlaceholderText('What you search?');
+  test('input has changed and button is clicked', (): void => {
+    const button: HTMLElement = headerElement.getByRole('button', { name: /Search/i });
+    const input: HTMLElement = headerElement.getByPlaceholderText('What you search?');
     fireEvent.change(input, { target: { value: 'search' } });
     fireEvent.click(button);
     expect(localStorage.getItem('query')).toBe('search');

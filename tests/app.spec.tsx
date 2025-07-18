@@ -6,21 +6,21 @@ import App from '../src/App';
 import { mockApi } from './test-utils/mockApi';
 import { arrLuffy, arrZoro } from './test-utils/arrays-for-test';
 
-describe('Rendering App', () => {
+describe('Rendering App', (): void => {
   const mockError = new Error('API Error');
   let appComponent: RenderResult;
-  beforeEach(() => {
+  beforeEach((): void => {
     mockApi.success(arrLuffy);
     appComponent = render(<App />);
   });
-  afterEach(() => {
+  afterEach((): void => {
     localStorage.clear();
     mockApi.reset();
   });
-  test('renders header in App', () => {
+  test('renders header in App', (): void => {
     expect(appComponent.getByRole('banner')).toBeInTheDocument();
   });
-  test('renders main in App', async () => {
+  test('renders main in App', async (): Promise<void> => {
     const { container } = appComponent;
     await waitFor(
       () => {
@@ -30,32 +30,34 @@ describe('Rendering App', () => {
       { timeout: 2000 }
     );
   });
-  test('render ErrorBtn in App', () => {
+  test('render ErrorBtn in App', (): void => {
     expect(appComponent.getByRole('button', { name: 'Error' }));
   });
-  test('on ErrorBtn click intercepted by Error Boundary', () => {
+  test('on ErrorBtn click intercepted by Error Boundary', (): void => {
     const btn = appComponent.getByRole('button', { name: 'Error' });
     fireEvent.click(btn);
     expect(appComponent.getByText('Что-то пошло не так.')).toBeInTheDocument();
   });
-  test('Error Boundary closed by reset btn click', async () => {
-    const btnError = appComponent.getByRole('button', { name: 'Error' });
+  test('Error Boundary closed by reset btn click', async (): Promise<void> => {
+    const btnError: HTMLElement = appComponent.getByRole('button', {
+      name: 'Error',
+    });
     fireEvent.click(btnError);
-    await waitFor(() => {
+    await waitFor((): void => {
       expect(
         appComponent.getByText('Что-то пошло не так.')
       ).toBeInTheDocument();
     });
-    const btnReset = appComponent.getByRole('button', {
+    const btnReset: HTMLElement = appComponent.getByRole('button', {
       name: 'Попробовать снова',
     });
     fireEvent.click(btnReset);
-    await waitFor(() => {
+    await waitFor((): void => {
       expect(appComponent.queryByText('Что-то пошло не так.')).toBeNull();
       expect(appComponent.findByRole('main')).resolves.toBeInTheDocument();
     });
   });
-  test('Error render with bad request', async () => {
+  test('Error render with bad request', async (): Promise<void> => {
     mockApi.error(mockError);
     appComponent = render(<App />);
     await waitFor(
@@ -71,21 +73,24 @@ describe('Rendering App', () => {
     );
   });
 });
-describe('Search part of App and local storage check', async () => {
+describe('Search part of App and local storage check', async (): Promise<void> => {
   let appComponent: RenderResult;
   afterAll(() => {
     localStorage.clear();
     mockApi.reset();
   });
-  test.sequential('search luffy', async () => {
+  test.sequential('search luffy', async (): Promise<void> => {
     mockApi.mockConditional();
     appComponent = render(<App />);
-    const button = appComponent.getByRole('button', { name: /Search/i });
-    const input = appComponent.getByPlaceholderText('What you search?');
+    const button: HTMLElement = appComponent.getByRole('button', {
+      name: /Search/i,
+    });
+    const input: HTMLElement =
+      appComponent.getByPlaceholderText('What you search?');
     fireEvent.change(input, { target: { value: 'zoro' } });
     fireEvent.click(button);
     await waitFor(
-      () => {
+      (): void => {
         expect(
           appComponent.getByText(`${arrZoro.data[0].name}`)
         ).toBeInTheDocument();
@@ -93,7 +98,7 @@ describe('Search part of App and local storage check', async () => {
       { timeout: 2000 }
     );
   });
-  test.sequential('local storage check', async () => {
+  test.sequential('local storage check', async (): Promise<void> => {
     appComponent = render(<App />);
     expect(appComponent.getByText(`${arrZoro.data[0].name}`));
   });
