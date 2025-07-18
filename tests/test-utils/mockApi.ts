@@ -23,5 +23,5 @@ export const mockApi = {
       }
       return Promise.reject(defaultError);
     });
-  }
+  },
 };

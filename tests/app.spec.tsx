@@ -96,5 +96,5 @@ describe('Search part of App and local storage check', async () => {
   test.sequential('local storage check', async () => {
     appComponent = render(<App />);
     expect(appComponent.getByText(`${arrZoro.data[0].name}`));
-  })
+  });
 });
