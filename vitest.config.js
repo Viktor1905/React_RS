@@ -11,14 +11,14 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     coverage: {
-        provider: 'v8',
-      include: [
-        'tests/**/*.spec.ts',
-        'tests/**/*.spec.tsx',
-        'tests/**/*.test.ts',
-        'tests/**/*.test.tsx',
+      provider: 'v8',
+      include: ['src/**/*.ts', 'src/**/*.tsx'],
+      exclude: [
+        '**/node_modules/**',
+        '**/.husky/**',
+        '**/.idea/**',
+        '**/src/api/**',
       ],
-      exclude: ['**/node_modules/**', '**/.husky/**', '**/.idea/**'],
       thresholds: {
         statements: 80,
         branches: 50,
