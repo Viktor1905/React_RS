@@ -3,8 +3,8 @@ import { beforeEach, describe, test } from 'vitest';
 import { fireEvent, render, RenderResult } from '@testing-library/react';
 import { ErrorPage } from '../src/components/Error/ErrorPage';
 
-const errorElem = { name: 'Error', message: 'Error text' };
 describe('errorPage component', () => {
+  const errorElem = { name: 'Error', message: 'Error text' };
   let errorPage: RenderResult;
   const handleClick = vi.fn();
   beforeEach(() => {

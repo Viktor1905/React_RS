@@ -17,7 +17,6 @@ export default defineConfig({
         '**/node_modules/**',
         '**/.husky/**',
         '**/.idea/**',
-        '**/src/api/**',
       ],
       thresholds: {
         statements: 80,

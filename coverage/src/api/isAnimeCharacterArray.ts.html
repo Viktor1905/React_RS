@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/components/Main/CharacterCard.tsx</title>
+    <title>Code coverage report for src/api/isAnimeCharacterArray.ts</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../prettify.css" />
-    <link rel="stylesheet" href="../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.png" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../sort-arrow-sprite.png);
+            background-image: url(../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/components/Main</a> CharacterCard.tsx</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/api</a> isAnimeCharacterArray.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/18</span>
+                <span class='fraction'>21/21</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">71.42% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>5/7</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>18/18</span>
+                <span class='fraction'>21/21</span>
             </div>
         
             
@@ -88,55 +88,67 @@
 <a name='L23'></a><a href='#L23'>23</a>
 <a name='L24'></a><a href='#L24'>24</a>
 <a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">37x</span>
-<span class="cline-any cline-yes">37x</span>
-<span class="cline-any cline-yes">37x</span>
-<span class="cline-any cline-yes">37x</span>
-<span class="cline-any cline-yes">37x</span>
-<span class="cline-any cline-yes">37x</span>
-<span class="cline-any cline-yes">37x</span>
-<span class="cline-any cline-yes">37x</span>
-<span class="cline-any cline-yes">37x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">37x</span>
-<span class="cline-any cline-yes">37x</span>
-<span class="cline-any cline-yes">37x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">37x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Component, type ReactElement } from 'react';
-import type { AnimeCharacter } from '../../api/api.ts';
-import styles from '@/components/Main/styles/character.module.css';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { AnimeCharacter, AnimeCharacterResponse } from './api.ts';
 &nbsp;
-interface CardState {
-  character: AnimeCharacter;
-}
-export class CharacterCard extends Component&lt;CardState&gt; {
-  render(): ReactElement {
+export function isAnimeCharacterResponse(
+  value: unknown
+): value is AnimeCharacterResponse {
+  if (typeof value !== 'object' || value === null) return false;
+&nbsp;
+  const obj = value as Record&lt;string, unknown&gt;;
+&nbsp;
+  if (!Array.isArray(obj.data)) <span class="branch-0 cbranch-no" title="branch not covered" >return false;</span>
+&nbsp;
+  return obj.data.every((item: unknown): item is AnimeCharacter =&gt; {
+    if (typeof item !== 'object' || item === null) <span class="branch-0 cbranch-no" title="branch not covered" >return false;</span>
+&nbsp;
+    const char = item as Record&lt;string, unknown&gt;;
+&nbsp;
     return (
-      &lt;li className={styles.card}&gt;
-        &lt;img
-          src={this.props.character.images.jpg.image_url}
-          className={styles.img}
-          alt="image"
-        /&gt;
-        &lt;div&gt;{this.props.character.name}&lt;/div&gt;
-        &lt;div&gt;
-          More info:
-          &lt;a href={this.props.character.url}&gt; Here&lt;/a&gt;
-        &lt;/div&gt;
-      &lt;/li&gt;
+      typeof char.url === 'string' &amp;&amp;
+      typeof char.name === 'string' &amp;&amp;
+      typeof char.images === 'object' &amp;&amp;
+      char.images !== null &amp;&amp;
+      typeof (char.images as Record&lt;string, unknown&gt;).jpg === 'object' &amp;&amp;
+      (char.images as Record&lt;string, unknown&gt;).jpg !== null &amp;&amp;
+      typeof (
+        (char.images as Record&lt;string, unknown&gt;).jpg as Record&lt;string, unknown&gt;
+      ).image_url === 'string'
     );
-  }
+  });
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -147,14 +159,14 @@ export class CharacterCard extends Component&lt;CardState&gt; {
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
                 at 2025-07-18T15:11:02.500Z
             </div>
-        <script src="../../../prettify.js"></script>
+        <script src="../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../sorter.js"></script>
-        <script src="../../../block-navigation.js"></script>
+        <script src="../../sorter.js"></script>
+        <script src="../../block-navigation.js"></script>
     </body>
 </html>
     

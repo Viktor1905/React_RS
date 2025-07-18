@@ -37,17 +37,14 @@ class App extends Component<object, AppState> {
 
   handleSearch: (query: string) => void = (query: string) => {
     this.setState({ loading: true, error: null });
-    console.log('handel');
     setTimeout(
       () =>
         requestApi(query)
           .then((data) => {
             localStorage.setItem('result', JSON.stringify(data));
-            console.log(data);
             return this.setState({ result: data, loading: false });
           })
           .catch((error: unknown): void => {
-            console.log('in timeout');
             this.setState({
               error:
                 error instanceof Error ? error : new Error('Unknown error'),
