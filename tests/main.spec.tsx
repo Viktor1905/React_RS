@@ -21,8 +21,7 @@ describe('Main component', (): void => {
   });
   test('should render spinner', (): void => {
     mainComponent = render(<Main result={arrLuffy} loading={true} />);
-    const { container } = mainComponent;
-    const spinner: Element = container.querySelector(`[class*="spinner"]`);
+    const spinner: Element = mainComponent.getByTestId(`load-spinner-main`);
     expect(spinner).toBeInTheDocument();
   });
   test.fails('should render another array', (): void => {

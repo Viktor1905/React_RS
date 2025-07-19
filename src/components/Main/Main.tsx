@@ -14,7 +14,9 @@ export class Main extends Component<MainState> {
   };
   render(): ReactElement {
     if (this.props.loading) {
-      return <div className={styles.spinner}></div>;
+      return (
+        <div className={styles.spinner} data-testid="load-spinner-main"></div>
+      );
     }
     const { result } = this.props;
     const isEmpty = result?.data.length;

@@ -11,8 +11,7 @@ describe('errorPage component', (): void => {
     errorPage = render(<ErrorPage error={errorElem} onRetry={handleClick} />);
   });
   test('should render errorPage', (): void => {
-    const { container } = errorPage;
-    expect(container.querySelector('.error-page')).toBeInTheDocument();
+    expect(errorPage.getByTestId('error-page')).toBeInTheDocument();
   });
   test('should render error message', (): void => {
     expect(errorPage.getByText(errorElem.message)).toBeInTheDocument();
@@ -23,7 +22,9 @@ describe('errorPage component', (): void => {
     ).toBeInTheDocument();
   });
   test('btn must work onClick', (): void => {
-    const btn: HTMLElement = errorPage.getByRole('button', { name: 'Try again' });
+    const btn: HTMLElement = errorPage.getByRole('button', {
+      name: 'Try again',
+    });
     fireEvent.click(btn);
     expect(handleClick).toHaveBeenCalled();
   });

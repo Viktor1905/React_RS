@@ -21,10 +21,10 @@ describe('Rendering App', (): void => {
     expect(appComponent.getByRole('banner')).toBeInTheDocument();
   });
   test('renders main in App', async (): Promise<void> => {
-    const { container } = appComponent;
+    const spinner: Element = appComponent.getByTestId(`load-spinner-main`);
+    expect(spinner).toBeInTheDocument();
     await waitFor(
-      () => {
-        expect(container.querySelector(`[class*="spinner"]`)).toBeNull();
+      (): void => {
         expect(appComponent.getByRole('main')).toBeInTheDocument();
       },
       { timeout: 2000 }
@@ -34,7 +34,9 @@ describe('Rendering App', (): void => {
     expect(appComponent.getByRole('button', { name: 'Error' }));
   });
   test('on ErrorBtn click intercepted by Error Boundary', (): void => {
-    const btn = appComponent.getByRole('button', { name: 'Error' });
+    const btn: HTMLElement = appComponent.getByRole('button', {
+      name: 'Error',
+    });
     fireEvent.click(btn);
     expect(appComponent.getByText('Что-то пошло не так.')).toBeInTheDocument();
   });
@@ -61,13 +63,8 @@ describe('Rendering App', (): void => {
     mockApi.error(mockError);
     appComponent = render(<App />);
     await waitFor(
-      () => {
-        expect(
-          appComponent.container.querySelector(`[class*="spinner"]`)
-        ).toBeNull();
-        expect(
-          appComponent.container.querySelector('.error-page')
-        ).toBeInTheDocument();
+      (): void => {
+        expect(appComponent.getByTestId('error-page')).toBeInTheDocument();
       },
       { timeout: 2000 }
     );

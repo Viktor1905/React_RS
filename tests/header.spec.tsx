@@ -28,11 +28,15 @@ describe('header component', (): void => {
     expect(headerElement.getByPlaceholderText('What you search?'));
   });
   test('header has button type: submit and text: Search', (): void => {
-    const button: HTMLElement = headerElement.getByRole('button', { name: /Search/i });
+    const button: HTMLElement = headerElement.getByRole('button', {
+      name: /Search/i,
+    });
     expect(button).toHaveAttribute('type', 'submit');
   });
   test('input has changed and button is clicked', (): void => {
-    const button: HTMLElement = headerElement.getByRole('button', { name: /Search/i });
+    const button: HTMLElement = headerElement.getByRole('button', {
+      name: /Search/i,
+    });
     const input: HTMLElement = headerElement.getByPlaceholderText('What you search?');
     fireEvent.change(input, { target: { value: 'search' } });
     fireEvent.click(button);

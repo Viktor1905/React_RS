@@ -23,6 +23,7 @@ export const mockApi = {
           return Promise.resolve(arrZoro);
         }
         return Promise.reject(defaultError);
-      });
+      }
+    );
   },
 };
