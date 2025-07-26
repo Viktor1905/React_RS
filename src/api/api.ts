@@ -11,7 +11,6 @@ export async function requestApi(
     if (!isAnimeCharacterResponse(characterResponse)) {
       throw new Error('Invalid products response format');
     }
-    console.log(characterResponse);
     return characterResponse;
   } catch (error) {
     throw new Error(
@@ -23,6 +22,7 @@ export async function requestApi(
 export interface AnimeCharacter {
   url: string;
   name: string;
+  description?: string;
   images: {
     jpg: {
       image_url: string;
