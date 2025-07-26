@@ -37,7 +37,8 @@ describe('header component', (): void => {
     const button: HTMLElement = headerElement.getByRole('button', {
       name: /Search/i,
     });
-    const input: HTMLElement = headerElement.getByPlaceholderText('What you search?');
+    const input: HTMLElement =
+      headerElement.getByPlaceholderText('What you search?');
     fireEvent.change(input, { target: { value: 'search' } });
     fireEvent.click(button);
     expect(localStorage.getItem('query')).toBe('search');
