@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/api/isAnimeCharacterArray.ts</title>
+    <title>Code coverage report for src/hooks/useLocalStorage.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/api</a> isAnimeCharacterArray.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/hooks</a> useLocalStorage.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">91.3% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>21/21</span>
+                <span class='fraction'>21/23</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/6</span>
+                <span class='fraction'>7/8</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">91.3% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>21/21</span>
+                <span class='fraction'>21/23</span>
             </div>
         
             
@@ -92,64 +92,67 @@
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
 <a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { AnimeCharacter, AnimeCharacterResponse } from './api.ts';
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { type Dispatch, type SetStateAction, useEffect, useState } from 'react';
+import { isAnimeCharacterResponse } from '../api/isAnimeCharacterArray';
+import type { AnimeCharacterResponse } from '../api/api';
 &nbsp;
-export function isAnimeCharacterResponse(
-  value: unknown
-): value is AnimeCharacterResponse {
-  if (typeof value !== 'object' || value === null) return false;
+export const useLocalStorage = (
+  key: string,
+  initialValue: AnimeCharacterResponse | null = null
+): [
+  AnimeCharacterResponse | null,
+  Dispatch&lt;SetStateAction&lt;AnimeCharacterResponse | null&gt;&gt;,
+] =&gt; {
+  const [value, setValue] = useState&lt;AnimeCharacterResponse | null&gt;(
+    (): AnimeCharacterResponse | null =&gt; {
+      const stored: string | null = localStorage.getItem(key);
+      if (!stored) return initialValue;
+      try {
+        const parsed = JSON.parse(stored);
+        return isAnimeCharacterResponse(parsed) ? parsed : initialValue;
+<span class="branch-0 cbranch-no" title="branch not covered" >      } catch {</span>
+<span class="cstat-no" title="statement not covered" >        return initialValue;</span>
+<span class="cstat-no" title="statement not covered" >      }</span>
+    }
+  );
 &nbsp;
-  const obj = value as Record&lt;string, unknown&gt;;
+  useEffect((): void =&gt; {
+    localStorage.setItem(key, JSON.stringify(value));
+  }, [key, value]);
 &nbsp;
-  if (!Array.isArray(obj.data)) <span class="branch-0 cbranch-no" title="branch not covered" >return false;</span>
-&nbsp;
-  return obj.data.every((item: unknown): item is AnimeCharacter =&gt; {
-    if (typeof item !== 'object' || item === null) <span class="branch-0 cbranch-no" title="branch not covered" >return false;</span>
-&nbsp;
-    const char = item as Record&lt;string, unknown&gt;;
-&nbsp;
-    return (
-      typeof char.url === 'string' &amp;&amp;
-      typeof char.name === 'string' &amp;&amp;
-      typeof char.images === 'object' &amp;&amp;
-      char.images !== null &amp;&amp;
-      typeof (char.images as Record&lt;string, unknown&gt;).jpg === 'object' &amp;&amp;
-      (char.images as Record&lt;string, unknown&gt;).jpg !== null &amp;&amp;
-      typeof (
-        (char.images as Record&lt;string, unknown&gt;).jpg as Record&lt;string, unknown&gt;
-      ).image_url === 'string'
-    );
-  });
-}
+  return [value, setValue];
+};
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->

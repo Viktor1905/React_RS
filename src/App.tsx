@@ -1,12 +1,13 @@
 import './App.css';
 import { Header } from './components/Header/Header.tsx';
 import { Main } from './components/Main/Main.tsx';
-import { ErrorBtn } from './components/Error/ErrorBtn.tsx';
-import { useEffect, useState } from 'react';
+import { type ReactElement, useEffect, useState } from 'react';
 import { type AnimeCharacterResponse, requestApi } from './api/api.ts';
 import { ErrorBoundary } from './components/Error/ErrorBoundary.tsx';
 import { ErrorPage } from './components/Error/ErrorPage.tsx';
 import { useLocalStorage } from './hooks/useLocalStorage';
+import './index.css';
+import { ErrorBtn } from './components/Error/ErrorBtn';
 
 interface AppState {
   result: AnimeCharacterResponse | null;
@@ -14,8 +15,8 @@ interface AppState {
   hasError: boolean;
   error: Error | null;
 }
-function App() {
-  const [storage] = useLocalStorage('result');
+export default function App(): ReactElement {
+  const [storage, setStorage] = useLocalStorage('result');
   const [state, setState] = useState<AppState>({
     result: storage,
     loading: false,
@@ -25,27 +26,31 @@ function App() {
   useEffect((): void => {
     if (!storage) handleSearch('luffy');
   }, []);
-  const handleSearch: (query: string) => void = (query: string) => {
+  const handleSearch: (query: string) => void = (query: string): void => {
     setState({ ...state, loading: true, error: null });
     setTimeout(
-      () =>
+      (): Promise<void> =>
         requestApi(query)
-          .then((data) => {
-            localStorage.setItem('result', JSON.stringify(data));
-            return setState({ ...state, result: data, loading: false });
+          .then((data: AnimeCharacterResponse): void => {
+            setStorage(data);
+            setState((prev: AppState) => ({
+              ...prev,
+              result: data,
+              loading: false,
+            }));
           })
           .catch((error: unknown): void => {
-            setState({
-              ...state,
+            setState((prev: AppState) => ({
+              ...prev,
               error:
                 error instanceof Error ? error : new Error('Unknown error'),
               loading: false,
-            });
+            }));
           }),
       1000
     );
   };
-  const renderContent = () => {
+  const renderContent = (): ReactElement => {
     const { result, loading, error } = state;
     if (error) {
       return <ErrorPage error={error} onRetry={() => handleSearch('luffy')} />;
@@ -62,6 +67,4 @@ function App() {
       </ErrorBoundary>
     </>
   );
-};
-
-export default App;
+}
