@@ -16,7 +16,10 @@ interface AppState {
   error: Error | null;
 }
 export default function App(): ReactElement {
-  const [storage, setStorage] = useLocalStorage('result');
+  const [storage, setStorage] = useLocalStorage<AnimeCharacterResponse | null>(
+    'result',
+    null
+  );
   const [state, setState] = useState<AppState>({
     result: storage,
     loading: false,

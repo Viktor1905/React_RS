@@ -1,30 +1,28 @@
 import { type Dispatch, type SetStateAction, useEffect, useState } from 'react';
-import { isAnimeCharacterResponse } from '../api/isAnimeCharacterArray';
-import type { AnimeCharacterResponse } from '../api/api';
 
-export const useLocalStorage = (
+export function useLocalStorage<T>(
   key: string,
-  initialValue: AnimeCharacterResponse | null = null
-): [
-  AnimeCharacterResponse | null,
-  Dispatch<SetStateAction<AnimeCharacterResponse | null>>,
-] => {
-  const [value, setValue] = useState<AnimeCharacterResponse | null>(
-    (): AnimeCharacterResponse | null => {
-      const stored: string | null = localStorage.getItem(key);
-      if (!stored) return initialValue;
+  initialValue: T
+): [T, Dispatch<SetStateAction<T>>] {
+  const [value, setValue] = useState<T>(() => {
+    const stored = localStorage.getItem(key);
+    if (stored !== null) {
       try {
-        const parsed = JSON.parse(stored);
-        return isAnimeCharacterResponse(parsed) ? parsed : initialValue;
+        return JSON.parse(stored) as T;
       } catch {
         return initialValue;
       }
     }
-  );
+    return initialValue;
+  });
 
   useEffect((): void => {
-    localStorage.setItem(key, JSON.stringify(value));
+    if (typeof value === 'string') {
+      localStorage.setItem(key, value);
+    } else {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
   }, [key, value]);
 
   return [value, setValue];
-};
+}

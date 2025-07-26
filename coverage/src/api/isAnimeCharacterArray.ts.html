@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">4.76% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>21/21</span>
+                <span class='fraction'>1/21</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/6</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">4.76% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>21/21</span>
+                <span class='fraction'>1/21</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -95,61 +95,61 @@
 <a name='L30'></a><a href='#L30'>30</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { AnimeCharacter, AnimeCharacterResponse } from './api.ts';
 &nbsp;
-export function isAnimeCharacterResponse(
-  value: unknown
-): value is AnimeCharacterResponse {
-  if (typeof value !== 'object' || value === null) return false;
+export <span class="fstat-no" title="function not covered" >function isAnimeCharacterResponse(</span>
+<span class="cstat-no" title="statement not covered" >  value: unknown</span>
+<span class="cstat-no" title="statement not covered" >): value is AnimeCharacterResponse {</span>
+<span class="cstat-no" title="statement not covered" >  if (typeof value !== 'object' || value === null) return false;</span>
 &nbsp;
-  const obj = value as Record&lt;string, unknown&gt;;
+<span class="cstat-no" title="statement not covered" >  const obj = value as Record&lt;string, unknown&gt;;</span>
 &nbsp;
-  if (!Array.isArray(obj.data)) <span class="branch-0 cbranch-no" title="branch not covered" >return false;</span>
+<span class="cstat-no" title="statement not covered" >  if (!Array.isArray(obj.data)) return false;</span>
 &nbsp;
-  return obj.data.every((item: unknown): item is AnimeCharacter =&gt; {
-    if (typeof item !== 'object' || item === null) <span class="branch-0 cbranch-no" title="branch not covered" >return false;</span>
+<span class="cstat-no" title="statement not covered" >  return obj.data.every((item: unknown): item is AnimeCharacter =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (typeof item !== 'object' || item === null) return false;</span>
 &nbsp;
-    const char = item as Record&lt;string, unknown&gt;;
+<span class="cstat-no" title="statement not covered" >    const char = item as Record&lt;string, unknown&gt;;</span>
 &nbsp;
-    return (
-      typeof char.url === 'string' &amp;&amp;
-      typeof char.name === 'string' &amp;&amp;
-      typeof char.images === 'object' &amp;&amp;
-      char.images !== null &amp;&amp;
-      typeof (char.images as Record&lt;string, unknown&gt;).jpg === 'object' &amp;&amp;
-      (char.images as Record&lt;string, unknown&gt;).jpg !== null &amp;&amp;
-      typeof (
-        (char.images as Record&lt;string, unknown&gt;).jpg as Record&lt;string, unknown&gt;
-      ).image_url === 'string'
+<span class="cstat-no" title="statement not covered" >    return (</span>
+<span class="cstat-no" title="statement not covered" >      typeof char.url === 'string' &amp;&amp;</span>
+<span class="cstat-no" title="statement not covered" >      typeof char.name === 'string' &amp;&amp;</span>
+<span class="cstat-no" title="statement not covered" >      typeof char.images === 'object' &amp;&amp;</span>
+<span class="cstat-no" title="statement not covered" >      char.images !== null &amp;&amp;</span>
+<span class="cstat-no" title="statement not covered" >      typeof (char.images as Record&lt;string, unknown&gt;).jpg === 'object' &amp;&amp;</span>
+<span class="cstat-no" title="statement not covered" >      (char.images as Record&lt;string, unknown&gt;).jpg !== null &amp;&amp;</span>
+<span class="cstat-no" title="statement not covered" >      typeof (</span>
+<span class="cstat-no" title="statement not covered" >        (char.images as Record&lt;string, unknown&gt;).jpg as Record&lt;string, unknown&gt;</span>
+<span class="cstat-no" title="statement not covered" >      ).image_url === 'string'</span>
     );
-  });
-}
+<span class="cstat-no" title="statement not covered" >  });</span>
+<span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -157,7 +157,7 @@ export function isAnimeCharacterResponse(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-07-26T12:38:50.058Z
+                at 2025-07-26T14:08:48.143Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
