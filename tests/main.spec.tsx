@@ -21,16 +21,28 @@ describe('Main component', (): void => {
     expect(mainComponent.getByRole('list')).toBeInTheDocument();
   });
   test('should render is No data', (): void => {
-    mainComponent = render(<Main result={emptyArr} loading={false} />);
+    mainComponent = render(
+      <MemoryRouter>
+        <Main result={emptyArr} loading={false} />)
+      </MemoryRouter>
+    );
     expect(mainComponent.getByText('No data')).toBeInTheDocument();
   });
   test('should render spinner', (): void => {
-    mainComponent = render(<Main result={arrLuffy} loading={true} />);
+    mainComponent = render(
+      <MemoryRouter>
+        <Main result={arrLuffy} loading={true} />
+      </MemoryRouter>
+    );
     const spinner: Element = mainComponent.getByTestId(`load-spinner-main`);
     expect(spinner).toBeInTheDocument();
   });
   test.fails('should render another array', (): void => {
-    const newMainComponent = render(<Main result={arrZoro} loading={false} />);
+    const newMainComponent = render(
+      <MemoryRouter>
+        <Main result={arrZoro} loading={false} />
+      </MemoryRouter>
+    );
     expect(mainComponent).toEqual(newMainComponent);
   });
 });

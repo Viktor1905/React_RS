@@ -4,7 +4,7 @@ const baseUrl = 'https://api.jikan.moe/v4/characters?';
 export async function requestApi(
   search: string
 ): Promise<AnimeCharacterResponse> {
-  const url: string = baseUrl + 'q=' + search + '&limit=20';
+  const url: string = baseUrl + 'q=' + search;
   try {
     const response = await fetch(url);
     const characterResponse: unknown = await response.json();

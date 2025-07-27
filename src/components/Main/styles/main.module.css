@@ -4,9 +4,11 @@
 }
 .list {
   list-style: none;
-  display: flex;
-  gap: 5px;
+  display: grid;
+  gap: 15px;
   flex-wrap: wrap;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, auto);
 }
 .spinner {
   width: 40px;
@@ -16,6 +18,19 @@
   border-top-color: #1d72b8;
   border-radius: 50%;
   animation: spin 1s linear infinite;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 auto;
+}
+.pagination > button {
+  width: 20px;
+}
+.activeBtn {
+  background-color: #1d72b8;
+  color: white;
 }
 @keyframes spin {
   to {
