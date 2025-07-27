@@ -11,6 +11,10 @@ header {
   justify-content: center;
   height: 30px;
 }
+.buttonAbout {
+  display: block;
+  height: 100%;
+}
 .input {
 }
 .button {

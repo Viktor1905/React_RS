@@ -3,17 +3,20 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { Header } from '../src/components/Header/Header';
 import '@testing-library/jest-dom/vitest';
 import type { RenderResult } from '@testing-library/react';
+import { MemoryRouter } from 'react-router';
 
 describe('header component', (): void => {
   let headerElement: RenderResult;
   beforeEach((): void => {
     headerElement = render(
-      <Header
-        onSearch={(query: string): string => {
-          localStorage.setItem('query', query);
-          return query;
-        }}
-      />
+      <MemoryRouter>
+        <Header
+          onSearch={(query: string): string => {
+            localStorage.setItem('query', query);
+            return query;
+          }}
+        />
+      </MemoryRouter>
     );
   });
   test('should render header', (): void => {

@@ -6,6 +6,7 @@ import {
   useState,
 } from 'react';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
+import { NavLink } from 'react-router';
 interface HeaderProps {
   onSearch: (q: string) => void;
 }
@@ -25,6 +26,9 @@ export function Header({ onSearch }: HeaderProps): ReactElement {
     <header>
       <h1>Search anime character</h1>
       <form className={styles.form} onSubmit={handleSubmit}>
+        <NavLink to="/about">
+          <button className={styles.buttonAbout}>About</button>
+        </NavLink>
         <input
           placeholder="What you search?"
           className={styles.input}

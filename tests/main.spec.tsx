@@ -3,11 +3,16 @@ import { beforeEach, describe, expect } from 'vitest';
 import { render, RenderResult } from '@testing-library/react';
 import { Main } from '../src/components/Main/Main';
 import { arrLuffy, arrZoro, emptyArr } from './test-utils/arrays-for-test';
+import { MemoryRouter } from 'react-router';
 
 describe('Main component', (): void => {
   let mainComponent: RenderResult;
   beforeEach((): void => {
-    mainComponent = render(<Main result={arrLuffy} loading={false} />);
+    mainComponent = render(
+      <MemoryRouter>
+        <Main result={arrLuffy} loading={false} />
+      </MemoryRouter>
+    );
   });
   test('should render main', (): void => {
     expect(mainComponent.getByRole('main')).toBeInTheDocument();

@@ -5,13 +5,18 @@ import type { RenderResult } from '@testing-library/react';
 import App from '../src/App';
 import { mockApi } from './test-utils/mockApi';
 import { arrLuffy, arrZoro } from './test-utils/arrays-for-test';
+import { MemoryRouter } from 'react-router';
 
 describe('Rendering App', (): void => {
   const mockError = new Error('API Error');
   let appComponent: RenderResult;
   beforeEach((): void => {
     mockApi.success(arrLuffy);
-    appComponent = render(<App />);
+    appComponent = render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    );
   });
   afterEach((): void => {
     localStorage.clear();
@@ -78,7 +83,11 @@ describe('Search part of App and local storage check', async (): Promise<void> =
   });
   test.sequential('search luffy', async (): Promise<void> => {
     mockApi.mockConditional();
-    appComponent = render(<App />);
+    appComponent = render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    );
     const button: HTMLElement = appComponent.getByRole('button', {
       name: /Search/i,
     });
@@ -96,7 +105,11 @@ describe('Search part of App and local storage check', async (): Promise<void> =
     );
   });
   test.sequential('local storage check', async (): Promise<void> => {
-    appComponent = render(<App />);
+    appComponent = render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    );
     expect(appComponent.getByText(`${arrZoro.data[0].name}`));
   });
 });

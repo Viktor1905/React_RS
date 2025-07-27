@@ -8,6 +8,9 @@ import { ErrorPage } from './components/Error/ErrorPage.tsx';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import './index.css';
 import { ErrorBtn } from './components/Error/ErrorBtn';
+import { Route, Routes } from 'react-router';
+import { About } from './components/About/About';
+import { Page404 } from './components/Page404/Page404';
 
 interface AppState {
   result: AnimeCharacterResponse | null;
@@ -64,9 +67,20 @@ export default function App(): ReactElement {
   return (
     <>
       <ErrorBoundary>
-        <Header onSearch={handleSearch} />
-        {renderContent()}
-        <ErrorBtn />
+        <Routes>
+          <Route
+            index
+            element={
+              <>
+                <Header onSearch={handleSearch} />
+                {renderContent()}
+                <ErrorBtn />
+              </>
+            }
+          />
+          <Route path="/about" element={<About />} />
+          <Route path="*" element={<Page404 />} />
+        </Routes>
       </ErrorBoundary>
     </>
   );
