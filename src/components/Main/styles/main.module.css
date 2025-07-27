@@ -1,0 +1,48 @@
+.wrapper {
+  min-height: 80vh;
+  max-width: 1440px;
+  display: flex;
+  justify-content: center;
+}
+.section {
+  width: fit-content;
+}
+.list {
+  width: fit-content;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+.detailsSection {
+  padding: 1rem;
+  border-radius: 8px;
+}
+.spinner {
+  width: 40px;
+  height: 40px;
+  margin: 40px auto;
+  border: 4px solid #ccc;
+  border-top-color: #1d72b8;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 auto;
+}
+.pagination > button {
+  width: 20px;
+}
+.activeBtn {
+  background-color: #1d72b8;
+  color: white;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
