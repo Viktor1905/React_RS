@@ -10,7 +10,11 @@ describe('character card component', (): void => {
   let card: RenderResult;
   const character: AnimeCharacter = arrLuffy.data[0];
   beforeEach((): void => {
-    card = render(<MemoryRouter><CharacterCard character={character} /></MemoryRouter>);
+    card = render(
+      <MemoryRouter>
+        <CharacterCard character={character} />
+      </MemoryRouter>
+    );
   });
   test('should render a card', (): void => {
     expect(card.getByRole('listitem')).toBeInTheDocument();

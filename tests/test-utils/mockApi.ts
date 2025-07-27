@@ -1,10 +1,10 @@
-import { AnimeCharacterResponse } from '../../src/api/api';
+import { AnimeCharacterArrayResponse } from '../../src/api/api';
 import { vi } from 'vitest';
 import * as api from '../../src/api/api';
 import { arrLuffy, arrZoro } from './arrays-for-test';
 const defaultError = new Error('Character not found');
 export const mockApi = {
-  success: (data: AnimeCharacterResponse): void => {
+  success: (data: AnimeCharacterArrayResponse): void => {
     vi.spyOn(api, 'requestCharacters').mockResolvedValue(data);
   },
   error: (error: Error): void => {
@@ -15,7 +15,7 @@ export const mockApi = {
   },
   mockConditional: () => {
     vi.spyOn(api, 'requestCharacters').mockImplementation(
-      (query: string): Promise<AnimeCharacterResponse> => {
+      (query: string): Promise<AnimeCharacterArrayResponse> => {
         if (query.toLowerCase() === 'luffy') {
           return Promise.resolve(arrLuffy);
         }

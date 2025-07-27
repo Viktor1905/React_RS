@@ -1,19 +1,19 @@
 .close {
-    display: flex;
-    justify-content: end;
+  display: flex;
+  justify-content: end;
 }
 .wrapper {
-    max-width: 300px;
-    text-align: justify;
+  max-width: 300px;
+  text-align: justify;
 }
 .img {
-    max-width: 250px;
+  max-width: 250px;
 }
 .text {
-    color: #1aff01;
-    display: -webkit-box;
-    -webkit-line-clamp: 15;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis
+  color: #1aff01;
+  display: -webkit-box;
+  -webkit-line-clamp: 15;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

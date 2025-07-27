@@ -29,12 +29,12 @@ export function CharacterDetails({ id }: CharacterDetailsProps): ReactElement {
     return (
       <div
         className={stylesSpinner.spinner}
-        data-testid="load-spinner-details"
+        data-testid="character-details-spinner"
       ></div>
     );
   if (!character) return <div>Character not found.</div>;
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} data-testid="detailed">
       <div className={styles.close}>
         <button onClick={closeDetails}> Close </button>
       </div>

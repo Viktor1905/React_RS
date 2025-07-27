@@ -26,7 +26,7 @@ export async function requestOneCharacter(
   try {
     const response = await fetch(url);
     const characterResponse: unknown = await response.json();
-    console.log(characterResponse)
+    console.log(characterResponse);
     if (!isAnimeCharacterResponse(characterResponse)) {
       throw new Error('Invalid products response format');
     }

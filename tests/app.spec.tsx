@@ -2,6 +2,7 @@ import { afterAll, beforeEach, describe, test } from 'vitest';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/vitest';
 import type { RenderResult } from '@testing-library/react';
+import { mockSetSearchParams } from './test-utils/searchMock';
 import App from '../src/App';
 import { mockApi } from './test-utils/mockApi';
 import { arrLuffy, arrZoro } from './test-utils/arrays-for-test';
@@ -84,7 +85,7 @@ describe('Search part of App and local storage check', async (): Promise<void> =
   test.sequential('search luffy', async (): Promise<void> => {
     mockApi.mockConditional();
     appComponent = render(
-      <MemoryRouter>
+      <MemoryRouter initialEntries={['/?details' + arrZoro.data[0].mal_id]}>
         <App />
       </MemoryRouter>
     );
@@ -103,6 +104,9 @@ describe('Search part of App and local storage check', async (): Promise<void> =
       },
       { timeout: 2000 }
     );
+    fireEvent.click(appComponent.getByText(`${arrZoro.data[0].name}`));
+    const searchParamStr = mockSetSearchParams.mock.calls[1][0]?.toString();
+    expect(searchParamStr).toContain('details=' + arrZoro.data[0].mal_id);
   });
   test.sequential('local storage check', async (): Promise<void> => {
     appComponent = render(
