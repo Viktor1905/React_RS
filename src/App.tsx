@@ -2,7 +2,10 @@ import './App.css';
 import { Header } from './components/Header/Header.tsx';
 import { Main } from './components/Main/Main.tsx';
 import { type ReactElement, useEffect, useState } from 'react';
-import { type AnimeCharacterResponse, requestApi } from './api/api.ts';
+import {
+  type AnimeCharacterArrayResponse,
+  requestCharacters,
+} from './api/api.ts';
 import { ErrorBoundary } from './components/Error/ErrorBoundary.tsx';
 import { ErrorPage } from './components/Error/ErrorPage.tsx';
 import { useLocalStorage } from './hooks/useLocalStorage';
@@ -13,16 +16,14 @@ import { About } from './components/About/About';
 import { Page404 } from './components/Page404/Page404';
 
 interface AppState {
-  result: AnimeCharacterResponse | null;
+  result: AnimeCharacterArrayResponse | null;
   loading: boolean;
   hasError: boolean;
   error: Error | null;
 }
 export default function App(): ReactElement {
-  const [storage, setStorage] = useLocalStorage<AnimeCharacterResponse | null>(
-    'result',
-    null
-  );
+  const [storage, setStorage] =
+    useLocalStorage<AnimeCharacterArrayResponse | null>('result', null);
   const [state, setState] = useState<AppState>({
     result: storage,
     loading: false,
@@ -36,8 +37,8 @@ export default function App(): ReactElement {
     setState({ ...state, loading: true, error: null });
     setTimeout(
       (): Promise<void> =>
-        requestApi(query)
-          .then((data: AnimeCharacterResponse): void => {
+        requestCharacters(query)
+          .then((data: AnimeCharacterArrayResponse): void => {
             setStorage(data);
             setState((prev: AppState) => ({
               ...prev,

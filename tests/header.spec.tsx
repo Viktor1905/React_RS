@@ -45,7 +45,7 @@ describe('header component', (): void => {
     fireEvent.change(input, { target: { value: 'search' } });
     fireEvent.click(button);
     await waitFor(() =>
-      expect(JSON.parse(localStorage.getItem('query'))).toBe('search')
+      expect(localStorage.getItem('query')).toBe('search')
     );
   });
 });

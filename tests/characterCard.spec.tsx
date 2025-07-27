@@ -4,12 +4,13 @@ import { arrLuffy } from './test-utils/arrays-for-test';
 import { render, RenderResult } from '@testing-library/react';
 import { CharacterCard } from '../src/components/Main/CharacterCard';
 import { AnimeCharacter } from '../src/api/api';
+import { MemoryRouter } from 'react-router';
 
 describe('character card component', (): void => {
   let card: RenderResult;
   const character: AnimeCharacter = arrLuffy.data[0];
   beforeEach((): void => {
-    card = render(<CharacterCard character={character} />);
+    card = render(<MemoryRouter><CharacterCard character={character} /></MemoryRouter>);
   });
   test('should render a card', (): void => {
     expect(card.getByRole('listitem')).toBeInTheDocument();

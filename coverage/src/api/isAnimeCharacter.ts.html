@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/api/isAnimeCharacterArray.ts</title>
+    <title>Code coverage report for src/api/isAnimeCharacter.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/api</a> isAnimeCharacterArray.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/api</a> isAnimeCharacter.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">4.76% </span>
+                <span class="strong">9.52% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>1/21</span>
+                <span class='fraction'>2/21</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">4.76% </span>
+                <span class="strong">9.52% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>1/21</span>
+                <span class='fraction'>2/21</span>
             </div>
         
             
@@ -89,66 +89,57 @@
 <a name='L24'></a><a href='#L24'>24</a>
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L27'></a><a href='#L27'>27</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { AnimeCharacter, AnimeCharacterArrayResponse } from './api.ts';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { AnimeCharacter, AnimeCharacterResponse } from './api';
 &nbsp;
-export <span class="fstat-no" title="function not covered" >function isAnimeCharacterArray(</span>
-<span class="cstat-no" title="statement not covered" >  value: unknown</span>
-<span class="cstat-no" title="statement not covered" >): value is AnimeCharacterArrayResponse {</span>
+export <span class="fstat-no" title="function not covered" >function isAnimeCharacter(value: unknown): value is AnimeCharacter {</span>
 <span class="cstat-no" title="statement not covered" >  if (typeof value !== 'object' || value === null) return false;</span>
+<span class="cstat-no" title="statement not covered" >  const char = value as Record&lt;string, unknown&gt;;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  const obj = value as Record&lt;string, unknown&gt;;</span>
+<span class="cstat-no" title="statement not covered" >  return (</span>
+<span class="cstat-no" title="statement not covered" >    typeof char.url === 'string' &amp;&amp;</span>
+<span class="cstat-no" title="statement not covered" >    typeof char.name === 'string' &amp;&amp;</span>
+<span class="cstat-no" title="statement not covered" >    typeof char.images === 'object' &amp;&amp;</span>
+<span class="cstat-no" title="statement not covered" >    char.images !== null &amp;&amp;</span>
+<span class="cstat-no" title="statement not covered" >    typeof (char.images as Record&lt;string, unknown&gt;).jpg === 'object' &amp;&amp;</span>
+<span class="cstat-no" title="statement not covered" >    (char.images as Record&lt;string, unknown&gt;).jpg !== null &amp;&amp;</span>
+<span class="cstat-no" title="statement not covered" >    typeof (</span>
+<span class="cstat-no" title="statement not covered" >      (char.images as Record&lt;string, unknown&gt;).jpg as Record&lt;string, unknown&gt;</span>
+<span class="cstat-no" title="statement not covered" >    ).image_url === 'string'</span>
+  );
+<span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (!Array.isArray(obj.data)) return false;</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  return obj.data.every((item: unknown): item is AnimeCharacter =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (typeof item !== 'object' || item === null) return false;</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    const char = item as Record&lt;string, unknown&gt;;</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    return (</span>
-<span class="cstat-no" title="statement not covered" >      typeof char.url === 'string' &amp;&amp;</span>
-<span class="cstat-no" title="statement not covered" >      typeof char.name === 'string' &amp;&amp;</span>
-<span class="cstat-no" title="statement not covered" >      typeof char.images === 'object' &amp;&amp;</span>
-<span class="cstat-no" title="statement not covered" >      char.images !== null &amp;&amp;</span>
-<span class="cstat-no" title="statement not covered" >      typeof (char.images as Record&lt;string, unknown&gt;).jpg === 'object' &amp;&amp;</span>
-<span class="cstat-no" title="statement not covered" >      (char.images as Record&lt;string, unknown&gt;).jpg !== null &amp;&amp;</span>
-<span class="cstat-no" title="statement not covered" >      typeof (</span>
-<span class="cstat-no" title="statement not covered" >        (char.images as Record&lt;string, unknown&gt;).jpg as Record&lt;string, unknown&gt;</span>
-<span class="cstat-no" title="statement not covered" >      ).image_url === 'string'</span>
-    );
-<span class="cstat-no" title="statement not covered" >  });</span>
+export <span class="fstat-no" title="function not covered" >function isAnimeCharacterResponse(</span>
+<span class="cstat-no" title="statement not covered" >  value: unknown</span>
+<span class="cstat-no" title="statement not covered" >): value is AnimeCharacterResponse {</span>
+<span class="cstat-no" title="statement not covered" >  if (value &amp;&amp; typeof value === 'object' &amp;&amp; 'data' in value)</span>
+<span class="cstat-no" title="statement not covered" >    return isAnimeCharacter(value.data);</span>
+<span class="cstat-no" title="statement not covered" >  return false;</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;</pre></td></tr></table></pre>
 

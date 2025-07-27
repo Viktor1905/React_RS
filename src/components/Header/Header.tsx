@@ -20,6 +20,7 @@ export function Header({ onSearch }: HeaderProps): ReactElement {
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     setQueryState(event.target.value);
   }
+
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setSearch(queryState);
@@ -28,7 +29,12 @@ export function Header({ onSearch }: HeaderProps): ReactElement {
     onSearch(queryState);
   }
   useEffect(() => {
-    setQueryState(search);
+    const searchParametr = searchParams.get('search');
+    if (searchParametr && searchParametr !== '') {
+      setQueryState(searchParametr);
+      setSearch(searchParametr);
+      onSearch(searchParametr);
+    } else setQueryState(search);
   }, [search]);
   return (
     <header>

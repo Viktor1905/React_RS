@@ -1,17 +1,22 @@
 import { type ReactElement } from 'react';
-import type { AnimeCharacter, AnimeCharacterResponse } from '../../api/api.ts';
+import type {
+  AnimeCharacter,
+  AnimeCharacterArrayResponse,
+} from '../../api/api.ts';
 import { CharacterCard } from './CharacterCard.tsx';
 import styles from '@/components/Main/styles/main.module.css';
 import { useSearchParams } from 'react-router';
+import { CharacterDetails } from './CharacterDetails';
 
 interface MainProps {
-  result: AnimeCharacterResponse | null;
+  result: AnimeCharacterArrayResponse | null;
   loading: boolean;
 }
 export function Main({ result, loading }: MainProps): ReactElement {
   const [searchParams, setSearchParams] = useSearchParams();
   const pageParam = Number(searchParams.get('page')) || 1;
   const perPage = 6;
+  const detailsId = searchParams.get('details');
   if (loading) {
     return (
       <div className={styles.spinner} data-testid="load-spinner-main"></div>
@@ -33,31 +38,38 @@ export function Main({ result, loading }: MainProps): ReactElement {
     <main className={styles.wrapper}>
       {isEmpty && result !== null ? (
         <>
-          <ul className={styles.list}>
-            {currentItems.map(
-              (char: AnimeCharacter): ReactElement => (
-                <CharacterCard key={char.url} character={char} />
-              )
-            )}
-          </ul>
+          <section className={styles.section}>
+            <ul className={styles.list}>
+              {currentItems.map(
+                (char: AnimeCharacter): ReactElement => (
+                  <CharacterCard key={char.url} character={char} />
+                )
+              )}
+            </ul>
 
-          <div className={styles.pagination}>
-            {Array.from(
-              { length: totalPages },
-              (_, i): ReactElement => (
-                <button
-                  key={i + 1}
-                  onClick={() => handlePageChange(i + 1)}
-                  disabled={pageParam === i + 1}
-                  className={
-                    pageParam === i + 1 ? styles.activeBtn : styles.pageBtn
-                  }
-                >
-                  {i + 1}
-                </button>
-              )
-            )}
-          </div>
+            <div className={styles.pagination}>
+              {Array.from(
+                { length: totalPages },
+                (_, i): ReactElement => (
+                  <button
+                    key={i + 1}
+                    onClick={() => handlePageChange(i + 1)}
+                    disabled={pageParam === i + 1}
+                    className={
+                      pageParam === i + 1 ? styles.activeBtn : styles.pageBtn
+                    }
+                  >
+                    {i + 1}
+                  </button>
+                )
+              )}
+            </div>
+          </section>
+          {detailsId && (
+            <aside className={styles.detailsSection}>
+              <CharacterDetails id={Number(detailsId)} />
+            </aside>
+          )}
         </>
       ) : (
         <p>No data</p>

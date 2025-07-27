@@ -1,8 +1,8 @@
-import type { AnimeCharacter, AnimeCharacterResponse } from './api.ts';
+import type { AnimeCharacter, AnimeCharacterArrayResponse } from './api.ts';
 
-export function isAnimeCharacterResponse(
+export function isAnimeCharacterArray(
   value: unknown
-): value is AnimeCharacterResponse {
+): value is AnimeCharacterArrayResponse {
   if (typeof value !== 'object' || value === null) return false;
 
   const obj = value as Record<string, unknown>;
