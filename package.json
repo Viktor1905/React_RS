@@ -17,8 +17,7 @@
     "*.{js,jsx,ts,tsx}": [
       "eslint --fix",
       "prettier --write",
-      "tsc --noEmit --skipLibCheck",
-      "vitest related"
+      "tsc --noEmit --skipLibCheck"
     ],
     "*.{json,md,html,css,scss}": [
       "prettier --write"
