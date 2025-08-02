@@ -17,7 +17,7 @@
     "*.{js,jsx,ts,tsx}": [
       "eslint --fix",
       "prettier --write",
-      "tsc --noEmit --skipLibCheck"
+      "tsc --noEmit -p tsconfig.json"
     ],
     "*.{json,md,html,css,scss}": [
       "prettier --write"

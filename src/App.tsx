@@ -30,7 +30,7 @@ export default function App(): ReactElement {
   useEffect((): void => {
     if (!storage) handleSearch('luffy');
   }, []);
-  const [isDarkTheme, setIsDarkTheme] = useState(true);
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
   function toggleTheme() {
     lightTheme(!isDarkTheme);
     setIsDarkTheme(!isDarkTheme);
