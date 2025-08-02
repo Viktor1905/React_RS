@@ -4,6 +4,9 @@ header {
   flex-wrap: wrap;
   justify-content: center;
 }
+.themeWrapper{
+  margin: 5px;
+}
 .form {
   width: 100%;
   display: flex;
