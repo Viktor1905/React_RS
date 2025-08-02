@@ -3,7 +3,7 @@ import {
   type AnimeFullCharacter,
   type AnimeCharacterResponse,
   getOneCharacter,
-} from '../../api/api.ts';
+} from '../../api/api';
 import styles from '@/components/CharacterDetailsWrapper/styles/characterDetails.module.css';
 import stylesSpinner from '@/components/Main/styles/main.module.css';
 import { useNavigate, useParams } from 'react-router';

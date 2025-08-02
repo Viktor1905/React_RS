@@ -1,5 +1,5 @@
 import { type ReactElement, useContext } from 'react';
-import { Theme, ThemeToggle } from '../../../../context.ts';
+import { Theme, ThemeToggle } from '../../../../context';
 import sun from './assets/sun.svg';
 import moon from './assets/moon.svg';
 import styles from './styles.module.css';

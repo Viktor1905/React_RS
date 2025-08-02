@@ -3,7 +3,7 @@ import type {
   AnimeCharacter,
   AnimeCharacterArrayResponse,
 } from '../../api/api.ts';
-import { CharacterCard } from './CharacterCard.tsx';
+import { CharacterCard } from './CharacterCard';
 import styles from '@/components/Main/styles/main.module.css';
 import { useNavigate, useParams } from 'react-router';
 

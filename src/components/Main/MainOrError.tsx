@@ -1,6 +1,6 @@
-import { ErrorPage } from '../Error/ErrorPage.tsx';
-import { Main } from './Main.tsx';
-import type { AnimeCharacterArrayResponse } from '../../api/api.ts';
+import { ErrorPage } from '../Error/ErrorPage';
+import { Main } from './Main';
+import type { AnimeCharacterArrayResponse } from '../../api/api';
 
 interface Props {
   result: AnimeCharacterArrayResponse | null;
