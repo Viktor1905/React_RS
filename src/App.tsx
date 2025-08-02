@@ -68,10 +68,7 @@ export default function App(): ReactElement {
             />
           }
         >
-          <Route
-            path="details/:id"
-            element={<CharacterDetailsWrapper />}
-          />
+          <Route path="details/:id" element={<CharacterDetailsWrapper />} />
         </Route>
         <Route path="/about" element={<About />} />
         <Route path="*" element={<Page404 />} />

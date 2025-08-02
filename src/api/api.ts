@@ -1,4 +1,4 @@
-import { isAnimeCharacterArray } from './isAnimeCharacterArray.ts';
+import { isAnimeCharacterArray } from './isAnimeCharacterArray';
 import { isAnimeCharacterResponse } from './isAnimeCharacter';
 const baseUrl = import.meta.env.VITE_API_URL;
 
