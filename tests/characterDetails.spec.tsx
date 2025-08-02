@@ -7,9 +7,8 @@ import {
   waitFor,
 } from '@testing-library/react';
 import { mockApi } from './test-utils/mockApi';
-import { arrLuffy, arrZoro } from './test-utils/arrays-for-test';
+import { arrLuffy } from './test-utils/arrays-for-test';
 import { MemoryRouter } from 'react-router';
-import { Main } from '../src/components/Main/Main';
 import App from '../src/App';
 let luffyItem: HTMLElement;
 describe('Rendering App', (): void => {
