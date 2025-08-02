@@ -8,7 +8,7 @@ import {
 } from 'react';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { NavLink } from 'react-router';
-import { GetThemeButton } from './components/ThemeButton/ThemeButton.tsx';
+import { GetThemeButton } from './components/ThemeButton/ThemeButton';
 interface HeaderProps {
   onSearch: (q: string) => void;
 }

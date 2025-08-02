@@ -1,15 +1,15 @@
 import './App.css';
 import { type ReactElement, useEffect, useState } from 'react';
-import { type AnimeCharacterArrayResponse, getCharacters } from './api/api.ts';
-import { ErrorBoundary } from './components/Error/ErrorBoundary.tsx';
+import { type AnimeCharacterArrayResponse, getCharacters } from './api/api';
+import { ErrorBoundary } from './components/Error/ErrorBoundary';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import './index.css';
 import { Navigate, Route, Routes } from 'react-router';
 import { About } from './components/About/About';
 import { Page404 } from './components/Page404/Page404';
-import Layout from './components/Layout/Layout.tsx';
-import { CharacterDetailsWrapper } from './components/CharacterDetailsWrapper/CharacterDetailsWrapper.tsx';
-import { Theme, ThemeToggle } from './context.ts';
+import Layout from './components/Layout/Layout';
+import { CharacterDetailsWrapper } from './components/CharacterDetailsWrapper/CharacterDetailsWrapper';
+import { Theme, ThemeToggle } from './context';
 
 interface AppState {
   result: AnimeCharacterArrayResponse | null;

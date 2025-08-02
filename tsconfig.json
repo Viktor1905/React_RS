@@ -8,8 +8,12 @@
     "esModuleInterop": true,
     "composite": true,
     "baseUrl": ".",
+    "target": "esnext",
+    "module": "esnext",
     "types": ["vitest/globals"],
+    "include": ["src", "src/types"],
     "jsx": "react-jsx",
+    "allowImportingTsExtensions": true,
     "paths": {
       "@features/*": ["src/features/*"]
     }
