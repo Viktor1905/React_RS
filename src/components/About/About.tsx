@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react';
+import { type ReactElement } from 'react';
 import { NavLink } from 'react-router';
 import styles from '@/components/About/styles/about.module.css';
 

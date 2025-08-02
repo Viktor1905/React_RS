@@ -3,39 +3,32 @@ import {
   type ChangeEvent,
   type FormEvent,
   type ReactElement,
-  useEffect,
+  useRef,
   useState,
 } from 'react';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
-import { NavLink, useSearchParams } from 'react-router';
+import { NavLink } from 'react-router';
 interface HeaderProps {
   onSearch: (q: string) => void;
 }
 
 export function Header({ onSearch }: HeaderProps): ReactElement {
   const [search, setSearch] = useLocalStorage<string>('query', '');
-  const [queryState, setQueryState] = useState<string>(search);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [inputValue, setInputValue] = useState(search);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    setQueryState(event.target.value);
+    setInputValue(event.target.value);
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setSearch(queryState);
-    searchParams.set('search', queryState);
-    setSearchParams(searchParams);
-    onSearch(queryState);
+    if (inputRef.current && inputRef.current.value) {
+      const inputValue = inputRef.current.value;
+      event.preventDefault();
+      setSearch(inputValue);
+      onSearch(inputValue);
+    }
   }
-  useEffect(() => {
-    const searchParametr = searchParams.get('search');
-    if (searchParametr && searchParametr !== '') {
-      setQueryState(searchParametr);
-      setSearch(searchParametr);
-      onSearch(searchParametr);
-    } else setQueryState(search);
-  }, [search]);
   return (
     <header>
       <h1>Search anime character</h1>
@@ -46,9 +39,10 @@ export function Header({ onSearch }: HeaderProps): ReactElement {
           </button>
         </NavLink>
         <input
+          ref={inputRef}
           placeholder="What you search?"
           className={styles.input}
-          value={queryState}
+          value={inputValue}
           onChange={handleChange}
         />
         <button type="submit" className={styles.button}>

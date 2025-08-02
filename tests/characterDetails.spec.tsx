@@ -7,22 +7,31 @@ import {
   waitFor,
 } from '@testing-library/react';
 import { mockApi } from './test-utils/mockApi';
-import { arrLuffy } from './test-utils/arrays-for-test';
+import { arrLuffy, arrZoro } from './test-utils/arrays-for-test';
 import { MemoryRouter } from 'react-router';
 import { Main } from '../src/components/Main/Main';
+import App from '../src/App';
 let luffyItem: HTMLElement;
 describe('Rendering App', (): void => {
   let appComponent: RenderResult;
-  beforeEach((): void => {
+  beforeEach(async (): Promise<void> => {
     mockApi.success(arrLuffy);
-    const initialEntries = [`/?details=${arrLuffy.data[1].mal_id}`];
+    const initialEntries = [`/1/details/${arrLuffy.data[1].mal_id}`];
     appComponent = render(
-      <MemoryRouter initialEntries={initialEntries}>
-        <Main result={arrLuffy} loading={false} />
-      </MemoryRouter>
+      <>
+        <MemoryRouter initialEntries={initialEntries}>
+          <App />
+        </MemoryRouter>
+      </>
     );
-    luffyItem = appComponent.getByText('Luffy Monkey D.');
-    fireEvent.click(luffyItem);
+    await waitFor(
+      (): void => {
+        expect(appComponent.getByText('Luffy Monkey D.')).toBeInTheDocument();
+        luffyItem = appComponent.getByText('Luffy Monkey D.');
+        fireEvent.click(luffyItem);
+      },
+      { timeout: 2000 }
+    );
   });
   afterEach(() => {
     vi.clearAllMocks();

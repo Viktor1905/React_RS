@@ -1,19 +1,14 @@
 import './App.css';
-import { Header } from './components/Header/Header.tsx';
-import { Main } from './components/Main/Main.tsx';
 import { type ReactElement, useEffect, useState } from 'react';
-import {
-  type AnimeCharacterArrayResponse,
-  requestCharacters,
-} from './api/api.ts';
+import { type AnimeCharacterArrayResponse, getCharacters } from './api/api.ts';
 import { ErrorBoundary } from './components/Error/ErrorBoundary.tsx';
-import { ErrorPage } from './components/Error/ErrorPage.tsx';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import './index.css';
-import { ErrorBtn } from './components/Error/ErrorBtn';
-import { Route, Routes } from 'react-router';
+import { Navigate, Route, Routes } from 'react-router';
 import { About } from './components/About/About';
 import { Page404 } from './components/Page404/Page404';
+import Layout from './components/Layout/Layout.tsx';
+import { CharacterDetailsWrapper } from './components/CharacterDetailsWrapper/CharacterDetailsWrapper.tsx';
 
 interface AppState {
   result: AnimeCharacterArrayResponse | null;
@@ -37,7 +32,7 @@ export default function App(): ReactElement {
     setState({ ...state, loading: true, error: null });
     setTimeout(
       (): Promise<void> =>
-        requestCharacters(query)
+        getCharacters(query)
           .then((data: AnimeCharacterArrayResponse): void => {
             setStorage(data);
             setState((prev: AppState) => ({
@@ -57,32 +52,30 @@ export default function App(): ReactElement {
       1000
     );
   };
-  const renderContent = (): ReactElement => {
-    const { result, loading, error } = state;
-    if (error) {
-      return <ErrorPage error={error} onRetry={() => handleSearch('luffy')} />;
-    }
-    return <Main result={result} loading={loading} />;
-  };
-
   return (
-    <>
-      <ErrorBoundary>
-        <Routes>
+    <ErrorBoundary>
+      <Routes>
+        <Route path="/" element={<Navigate to="/1" replace />} />
+        <Route
+          path=":page"
+          element={
+            <Layout
+              handleSearch={handleSearch}
+              result={state.result}
+              loading={state.loading}
+              error={state.error}
+              onRetry={handleSearch}
+            />
+          }
+        >
           <Route
-            index
-            element={
-              <>
-                <Header onSearch={handleSearch} />
-                {renderContent()}
-                <ErrorBtn />
-              </>
-            }
+            path="details/:id"
+            element={<CharacterDetailsWrapper />}
           />
-          <Route path="/about" element={<About />} />
-          <Route path="*" element={<Page404 />} />
-        </Routes>
-      </ErrorBoundary>
-    </>
+        </Route>
+        <Route path="/about" element={<About />} />
+        <Route path="*" element={<Page404 />} />
+      </Routes>
+    </ErrorBoundary>
   );
 }

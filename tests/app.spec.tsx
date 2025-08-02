@@ -2,11 +2,11 @@ import { afterAll, beforeEach, describe, test } from 'vitest';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/vitest';
 import type { RenderResult } from '@testing-library/react';
-import { mockSetSearchParams } from './test-utils/searchMock';
 import App from '../src/App';
 import { mockApi } from './test-utils/mockApi';
 import { arrLuffy, arrZoro } from './test-utils/arrays-for-test';
-import { MemoryRouter } from 'react-router';
+import { MemoryRouter, useLocation } from 'react-router';
+import { useEffect } from 'react';
 
 describe('Rendering App', (): void => {
   const mockError = new Error('API Error');
@@ -82,11 +82,20 @@ describe('Search part of App and local storage check', async (): Promise<void> =
     localStorage.clear();
     mockApi.reset();
   });
-  test.sequential('search luffy', async (): Promise<void> => {
+  test.sequential('search zoro', async (): Promise<void> => {
+    let testLocation = null;
+    function LocationDisplay() {
+      const location = useLocation();
+      useEffect(() => {
+        testLocation = location;
+      }, [location]);
+      return null;
+    }
     mockApi.mockConditional();
     appComponent = render(
-      <MemoryRouter initialEntries={['/?details' + arrZoro.data[0].mal_id]}>
+      <MemoryRouter initialEntries={['/1/details/' + arrZoro.data[0].mal_id]}>
         <App />
+        <LocationDisplay />
       </MemoryRouter>
     );
     const button: HTMLElement = appComponent.getByRole('button', {
@@ -105,8 +114,7 @@ describe('Search part of App and local storage check', async (): Promise<void> =
       { timeout: 2000 }
     );
     fireEvent.click(appComponent.getByText(`${arrZoro.data[0].name}`));
-    const searchParamStr = mockSetSearchParams.mock.calls[1][0]?.toString();
-    expect(searchParamStr).toContain('details=' + arrZoro.data[0].mal_id);
+    expect(testLocation?.pathname).toBe(`/1/details/${arrZoro.data[0].mal_id}`);
   });
   test.sequential('local storage check', async (): Promise<void> => {
     appComponent = render(

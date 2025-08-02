@@ -1,17 +1,18 @@
 import { type ReactElement } from 'react';
 import { type AnimeCharacter } from '../../api/api.ts';
 import styles from '@/components/Main/styles/character.module.css';
-import { useSearchParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 
 interface CardState {
   character: AnimeCharacter;
 }
 export function CharacterCard({ character }: CardState): ReactElement {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const { page } = useParams();
+  const currentPage = page ? parseInt(page) : 1;
 
   function handleClick(): void {
-    searchParams.set('details', character.mal_id);
-    setSearchParams(searchParams);
+    navigate(`/${currentPage}/details/${character.mal_id}`);
   }
   return (
     <li className={styles.card} onClick={handleClick}>

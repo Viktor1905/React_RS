@@ -1,8 +1,8 @@
 import { isAnimeCharacterArray } from './isAnimeCharacterArray.ts';
 import { isAnimeCharacterResponse } from './isAnimeCharacter';
-const baseUrl = 'https://api.jikan.moe/v4/characters';
+const baseUrl = import.meta.env.VITE_API_URL;
 
-export async function requestCharacters(
+export async function getCharacters(
   search: string
 ): Promise<AnimeCharacterArrayResponse> {
   const url: string = baseUrl + '?q=' + search;
@@ -19,7 +19,7 @@ export async function requestCharacters(
     );
   }
 }
-export async function requestOneCharacter(
+export async function getOneCharacter(
   id: string
 ): Promise<AnimeCharacterResponse> {
   const url: string = baseUrl + '/' + id + '/full';

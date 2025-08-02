@@ -5,16 +5,16 @@ import { arrLuffy, arrZoro } from './arrays-for-test';
 const defaultError = new Error('Character not found');
 export const mockApi = {
   success: (data: AnimeCharacterArrayResponse): void => {
-    vi.spyOn(api, 'requestCharacters').mockResolvedValue(data);
+    vi.spyOn(api, 'getCharacters').mockResolvedValue(data);
   },
   error: (error: Error): void => {
-    vi.spyOn(api, 'requestCharacters').mockRejectedValue(error);
+    vi.spyOn(api, 'getCharacters').mockRejectedValue(error);
   },
   reset: (): void => {
     vi.restoreAllMocks();
   },
   mockConditional: () => {
-    vi.spyOn(api, 'requestCharacters').mockImplementation(
+    vi.spyOn(api, 'getCharacters').mockImplementation(
       (query: string): Promise<AnimeCharacterArrayResponse> => {
         if (query.toLowerCase() === 'luffy') {
           return Promise.resolve(arrLuffy);

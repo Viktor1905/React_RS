@@ -11,4 +11,5 @@
   width: 300px;
   border-radius: 10px;
   height: 410px;
+  object-fit: cover
 }
