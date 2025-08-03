@@ -1,0 +1,24 @@
+header {
+  max-width: 1440px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.themeWrapper{
+  margin: 5px;
+}
+.form {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  height: 30px;
+}
+.buttonAbout {
+  display: block;
+  height: 100%;
+}
+.input {
+}
+.button {
+}
