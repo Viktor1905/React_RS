@@ -1,0 +1,19 @@
+.close {
+  display: flex;
+  justify-content: end;
+}
+.wrapper {
+  max-width: 300px;
+  text-align: justify;
+}
+.img {
+  width: 250px;
+}
+.text {
+  color: var(--text-color-details);
+  display: -webkit-box;
+  -webkit-line-clamp: 15;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
