@@ -14,6 +14,7 @@
   --button-text-color: #000000;
   --button-hover-color: #444;
   --text-color-details: #1aff01;
+  --bg-color-alternate: #ffffff;
 }
 
 a {
@@ -32,6 +33,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background-color: var(--bg-color);
+  flex-wrap: wrap;
 }
 
 h1 {
@@ -60,11 +62,12 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-[data-theme="light"] {
+[data-theme='light'] {
   --button-bg-color: #000000;
   --button-text-color: #f0f0f0;
   --button-hover-color: #444;
   --text-color: #000000;
   --bg-color: #ffffff;
   --text-color-details: #013501;
+  --bg-color-alternate: #013501;
 }

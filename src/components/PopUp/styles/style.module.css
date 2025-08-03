@@ -1,0 +1,25 @@
+.wrapper {
+  position: sticky;
+  bottom: 0;
+  background-color: var(--bg-color-alternate);
+  max-width: 20%;
+  min-width: 350px;
+  height: 40px;
+  padding: 10px;
+  display: flex;
+  border-radius: 5px;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--button-text-color);
+}
+.button {
+  background-color: var(--bg-color);
+  color: var(--bg-color-alternate);
+}
+.link {
+  text-decoration: none;
+  color: var(--bg-color-alternate);
+}
+.link:hover {
+  color: var(--bg-color-alternate);
+}

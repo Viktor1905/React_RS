@@ -10,6 +10,8 @@ import { Page404 } from './components/Page404/Page404';
 import Layout from './components/Layout/Layout';
 import { CharacterDetailsWrapper } from './components/CharacterDetailsWrapper/CharacterDetailsWrapper';
 import { Theme, ThemeToggle } from './context';
+import { useAppSelector } from './app/store';
+import { PopUp } from './components/PopUp/PopUp';
 
 interface AppState {
   result: AnimeCharacterArrayResponse | null;
@@ -27,6 +29,7 @@ export default function App(): ReactElement {
     hasError: false,
     error: null,
   });
+  const characters = useAppSelector((state) => state.selectedCharacter);
   useEffect((): void => {
     if (!storage) handleSearch('luffy');
   }, []);
@@ -86,6 +89,7 @@ export default function App(): ReactElement {
             <Route path="/about" element={<About />} />
             <Route path="*" element={<Page404 />} />
           </Routes>
+          {Object.keys(characters.selected).length > 0 && <PopUp />}
         </ThemeToggle>
       </Theme>
     </ErrorBoundary>
