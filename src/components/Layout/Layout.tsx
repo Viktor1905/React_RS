@@ -1,8 +1,8 @@
-import { Header } from '../Header/Header.tsx';
+import { Header } from '../Header/Header';
 import { Outlet } from 'react-router';
-import { ErrorBtn } from '../Error/ErrorBtn.tsx';
-import type { AnimeCharacterArrayResponse } from '../../api/api.ts';
-import { MainOrErrorPage } from '../Main/MainOrError.tsx';
+import { ErrorBtn } from '../Error/ErrorBtn';
+import type { AnimeCharacterArrayResponse } from '../../api/api';
+import { MainOrErrorPage } from '../Main/MainOrError';
 import styles from '@/components/Layout/styles/layout.module.css';
 
 export default function Layout({

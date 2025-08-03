@@ -1,5 +1,5 @@
 import { useParams } from 'react-router';
-import { CharacterDetails } from './CharacterDetails.tsx';
+import { CharacterDetails } from './CharacterDetails';
 
 export function CharacterDetailsWrapper() {
   const { id } = useParams();

@@ -1,5 +1,5 @@
 import { type ReactElement } from 'react';
-import { type AnimeCharacter } from '../../api/api.ts';
+import { type AnimeCharacter } from '../../api/api';
 import styles from '@/components/Main/styles/character.module.css';
 import { useNavigate, useParams } from 'react-router';
 
