@@ -1,5 +1,6 @@
 .card {
   display: flex;
+  position: relative;
   flex-direction: column;
   justify-content: space-between;
   gap: 10px;
@@ -12,4 +13,9 @@
   border-radius: 10px;
   height: 410px;
   object-fit: cover
+}
+.check {
+  position: absolute;
+  width: 20px;
+  height: 20px;
 }

@@ -5,6 +5,8 @@ import { render, RenderResult } from '@testing-library/react';
 import { CharacterCard } from '../src/components/Main/CharacterCard';
 import { AnimeCharacter } from '../src/api/api';
 import { MemoryRouter } from 'react-router';
+import store from '../src/app/store';
+import { Provider } from 'react-redux';
 
 describe('character card component', (): void => {
   let card: RenderResult;
@@ -12,7 +14,9 @@ describe('character card component', (): void => {
   beforeEach((): void => {
     card = render(
       <MemoryRouter>
-        <CharacterCard character={character} />
+        <Provider store={store}>
+          <CharacterCard character={character} />
+        </Provider>
       </MemoryRouter>
     );
   });

@@ -4,13 +4,17 @@ import { render, RenderResult } from '@testing-library/react';
 import { Main } from '../src/components/Main/Main';
 import { arrLuffy, arrZoro, emptyArr } from './test-utils/arrays-for-test';
 import { MemoryRouter } from 'react-router';
+import { Provider } from 'react-redux';
+import store from '../src/app/store';
 
 describe('Main component', (): void => {
   let mainComponent: RenderResult;
   beforeEach((): void => {
     mainComponent = render(
       <MemoryRouter>
-        <Main result={arrLuffy} loading={false} />
+        <Provider store={store}>
+          <Main result={arrLuffy} loading={false} />
+        </Provider>
       </MemoryRouter>
     );
   });
@@ -23,7 +27,9 @@ describe('Main component', (): void => {
   test('should render is No data', (): void => {
     mainComponent = render(
       <MemoryRouter>
-        <Main result={emptyArr} loading={false} />)
+        <Provider store={store}>
+          <Main result={emptyArr} loading={false} />)
+        </Provider>
       </MemoryRouter>
     );
     expect(mainComponent.getByText('No data')).toBeInTheDocument();
@@ -31,7 +37,9 @@ describe('Main component', (): void => {
   test('should render spinner', (): void => {
     mainComponent = render(
       <MemoryRouter>
-        <Main result={arrLuffy} loading={true} />
+        <Provider store={store}>
+          <Main result={arrLuffy} loading={true} />
+        </Provider>
       </MemoryRouter>
     );
     const spinner: Element = mainComponent.getByTestId(`load-spinner-main`);

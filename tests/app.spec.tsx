@@ -6,7 +6,10 @@ import App from '../src/App';
 import { mockApi } from './test-utils/mockApi';
 import { arrLuffy, arrZoro } from './test-utils/arrays-for-test';
 import { MemoryRouter, useLocation } from 'react-router';
+import type { Location } from 'react-router';
 import { useEffect } from 'react';
+import store from '../src/app/store';
+import { Provider } from 'react-redux';
 
 describe('Rendering App', (): void => {
   const mockError = new Error('API Error');
@@ -15,7 +18,9 @@ describe('Rendering App', (): void => {
     mockApi.success(arrLuffy);
     appComponent = render(
       <MemoryRouter>
-        <App />
+        <Provider store={store}>
+          <App />
+        </Provider>
       </MemoryRouter>
     );
   });
@@ -67,7 +72,11 @@ describe('Rendering App', (): void => {
   });
   test('Error render with bad request', async (): Promise<void> => {
     mockApi.error(mockError);
-    appComponent = render(<App />);
+    appComponent = render(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
     await waitFor(
       (): void => {
         expect(appComponent.getByTestId('error-page')).toBeInTheDocument();
@@ -83,19 +92,21 @@ describe('Search part of App and local storage check', async (): Promise<void> =
     mockApi.reset();
   });
   test.sequential('search zoro', async (): Promise<void> => {
-    let testLocation = null;
+    const locationRef = { current: null as Location | null };
     function LocationDisplay() {
       const location = useLocation();
       useEffect(() => {
-        testLocation = location;
+        locationRef.current = location;
       }, [location]);
       return null;
     }
     mockApi.mockConditional();
     appComponent = render(
       <MemoryRouter initialEntries={['/1/details/' + arrZoro.data[0].mal_id]}>
-        <App />
-        <LocationDisplay />
+        <Provider store={store}>
+          <App />
+          <LocationDisplay />
+        </Provider>
       </MemoryRouter>
     );
     const button: HTMLElement = appComponent.getByRole('button', {
@@ -114,12 +125,16 @@ describe('Search part of App and local storage check', async (): Promise<void> =
       { timeout: 2000 }
     );
     fireEvent.click(appComponent.getByText(`${arrZoro.data[0].name}`));
-    expect(testLocation?.pathname).toBe(`/1/details/${arrZoro.data[0].mal_id}`);
+    expect(locationRef.current?.pathname).toBe(
+      `/1/details/${arrZoro.data[0].mal_id}`
+    );
   });
   test.sequential('local storage check', async (): Promise<void> => {
     appComponent = render(
       <MemoryRouter>
-        <App />
+        <Provider store={store}>
+          <App />
+        </Provider>
       </MemoryRouter>
     );
     expect(appComponent.getByText(`${arrZoro.data[0].name}`));

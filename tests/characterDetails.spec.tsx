@@ -10,6 +10,8 @@ import { mockApi } from './test-utils/mockApi';
 import { arrLuffy } from './test-utils/arrays-for-test';
 import { MemoryRouter } from 'react-router';
 import App from '../src/App';
+import store from '../src/app/store';
+import { Provider } from 'react-redux';
 let luffyItem: HTMLElement;
 describe('Rendering App', (): void => {
   let appComponent: RenderResult;
@@ -19,7 +21,9 @@ describe('Rendering App', (): void => {
     appComponent = render(
       <>
         <MemoryRouter initialEntries={initialEntries}>
-          <App />
+          <Provider store={store}>
+            <App />
+          </Provider>
         </MemoryRouter>
       </>
     );
