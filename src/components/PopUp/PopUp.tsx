@@ -25,7 +25,7 @@ export function PopUp(): ReactElement {
     setLinkName(`${Object.values(characters.selected).length}_items`);
   }, [characters]);
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} data-testid="popUp">
       <button className={styles.button}>
         <a href={url} className={styles.link} download={linkName}>
           Download

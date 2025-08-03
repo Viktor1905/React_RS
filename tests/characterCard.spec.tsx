@@ -34,4 +34,16 @@ describe('character card component', (): void => {
     const link: HTMLElement = card.getByRole('link');
     expect(link).toHaveAttribute('href', `${character.url}`);
   });
+  test('card must have a popUp', (): void => {
+    const checkbox: HTMLElement = card.getByRole('checkbox');
+    expect(checkbox).toBeInTheDocument();
+  });
+  test('checkbox manage store', (): void => {
+    const allSelectedCharacter = store.getState().selectedCharacter;
+    const link: HTMLElement = card.getByRole('checkbox');
+    link.click();
+    expect(!!allSelectedCharacter.selected[String(character.mal_id)]);
+    link.click();
+    expect(!allSelectedCharacter.selected[String(character.mal_id)]);
+  });
 });

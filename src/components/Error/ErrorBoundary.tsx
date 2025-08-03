@@ -15,9 +15,10 @@ export class ErrorBoundary extends Component<
 > {
   state: ErrorBoundaryState = {
     hasError: false,
+    error: undefined,
   };
   static getDerivedStateFromError(error: Error): Partial<ErrorBoundaryState> {
-    return { hasError: true, error };
+    return { hasError: true, error: error };
   }
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error('Error caught in boundary:', error, errorInfo);
