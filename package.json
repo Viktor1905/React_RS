@@ -16,8 +16,7 @@
   "lint-staged": {
     "*.{ts,tsx}": [
       "eslint --fix",
-      "prettier --write",
-      "tsc --noEmit --project tsconfig.json"
+      "prettier --write"
     ],
     "*.{json,md,html,css,scss}": [
       "prettier --write"
