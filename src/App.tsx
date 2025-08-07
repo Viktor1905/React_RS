@@ -33,14 +33,9 @@ export default function App(): ReactElement {
   useEffect((): void => {
     if (!storage) handleSearch('luffy');
   }, []);
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
+  const [isLightTheme, setIsLightTheme] = useState(false);
   function toggleTheme() {
-    lightTheme(!isDarkTheme);
-    setIsDarkTheme(!isDarkTheme);
-    document.documentElement.setAttribute(
-      'data-theme',
-      isDarkTheme ? '' : 'light'
-    );
+    setIsLightTheme(!isLightTheme);
   }
   const handleSearch: (query: string) => void = (query: string): void => {
     setState({ ...state, loading: true, error: null });
@@ -66,9 +61,12 @@ export default function App(): ReactElement {
       1000
     );
   };
+  useEffect(() => {
+    lightTheme(isLightTheme);
+  }, [isLightTheme]);
   return (
     <ErrorBoundary>
-      <Theme value={isDarkTheme}>
+      <Theme value={isLightTheme}>
         <ThemeToggle value={toggleTheme}>
           <Routes>
             <Route path="/" element={<Navigate to="/1" replace />} />
@@ -95,8 +93,12 @@ export default function App(): ReactElement {
     </ErrorBoundary>
   );
 }
-function lightTheme(isDark: boolean) {
-  if (isDark) {
+function lightTheme(isLight: boolean) {
+  document.documentElement.setAttribute(
+    'data-theme',
+    isLight ? 'light' : 'dark'
+  );
+  if (isLight) {
     document.body.style.backgroundColor = '#fff';
     document.body.style.color = '#000';
   } else {
