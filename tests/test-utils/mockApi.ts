@@ -13,6 +13,7 @@ let shouldFail: boolean = false;
 
 export const mockApi = createApi({
   reducerPath: 'charactersApi',
+  tagTypes: ['List', 'Character'],
   baseQuery: async () => {
     await new Promise((resolve) => setTimeout(resolve, delayDuration));
     if (shouldFail) {
@@ -30,6 +31,7 @@ export const mockApi = createApi({
       query: () => {
         '';
       },
+      providesTags: ['List'],
       transformResponse: (response) => response,
       async onQueryStarted(arg, { queryFulfilled }) {
         try {
@@ -41,6 +43,7 @@ export const mockApi = createApi({
     }),
     getCharacterById: builder.query({
       query: () => ``,
+      providesTags: (result, error, id) => [{ type: 'Character', id }],
       transformResponse: () => mockDetails,
     }),
   }),

@@ -45,9 +45,10 @@ export function Main(): ReactElement {
           <div className={styles.section}>
             <button
               className={styles.refresh}
-              onClick={() =>
-                dispatch(charactersApi.util.invalidateTags(['List']))
-              }
+              data-testid="refresh-button"
+              onClick={() => {
+                dispatch(charactersApi.util.invalidateTags(['List']));
+              }}
             >
               {' '}
               Refresh
@@ -57,7 +58,7 @@ export function Main(): ReactElement {
                 <CharacterCard key={char.url} character={char} />
               ))}
             </ul>
-            <div className={styles.pagination}>
+            <div className={styles.pagination} data-testid="pagination">
               {Array.from({ length: totalPages }, (_, i) => (
                 <button
                   key={i + 1}

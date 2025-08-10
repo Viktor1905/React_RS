@@ -14,7 +14,6 @@ export function CharacterDetails({ id }: CharacterDetailsProps): ReactElement {
   function closeDetails() {
     navigate(`/${currentPage}/`);
   }
-
   if (isLoading)
     return (
       <div
@@ -27,7 +26,10 @@ export function CharacterDetails({ id }: CharacterDetailsProps): ReactElement {
     return (
       <div>
         <div className={styles.close}>
-          <button onClick={closeDetails}> Close </button>
+          <button onClick={closeDetails} data-testid="close-btn-not-found">
+            {' '}
+            Close{' '}
+          </button>
         </div>
         Character not found
       </div>
@@ -39,6 +41,7 @@ export function CharacterDetails({ id }: CharacterDetailsProps): ReactElement {
       <div className={styles.close}>
         <button
           className={styles.refresh}
+          data-testId="details-refresh"
           onClick={() =>
             dispatch(
               charactersApi.util.invalidateTags([{ type: 'Character', id }])

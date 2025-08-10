@@ -1,9 +1,14 @@
 import '@testing-library/jest-dom/vitest';
 import { beforeAll, beforeEach, describe, expect } from 'vitest';
-import { render, RenderResult, waitFor } from '@testing-library/react';
+import {
+  fireEvent,
+  render,
+  RenderResult,
+  waitFor,
+} from '@testing-library/react';
 import { Main } from '../src/components/Main/Main';
 import { arrLuffy, arrZoro } from './test-utils/arrays-for-test';
-import { MemoryRouter } from 'react-router';
+import { MemoryRouter, useLocation } from 'react-router';
 import { Provider } from 'react-redux';
 import { resetMockData, setMockData } from './test-utils/mockApi';
 import App from '../src/App';
@@ -17,6 +22,10 @@ vi.mock('../src/api/api', async (importOriginal) => {
     useGetCharacterByIdQuery: mockApi.useGetCharacterByIdQuery,
   };
 });
+const LocationDisplay = () => {
+  const location = useLocation();
+  return <div data-testid="location-display">{location.pathname}</div>;
+};
 describe('Main component', (): void => {
   let store: ReturnType<typeof createTestStore>;
   let mainComponent: RenderResult;
@@ -27,6 +36,7 @@ describe('Main component', (): void => {
       <MemoryRouter initialEntries={['/1']}>
         <Provider store={store}>
           <App />
+          <LocationDisplay />
         </Provider>
       </MemoryRouter>
     );
@@ -76,8 +86,45 @@ describe('Main component', (): void => {
     const newMainComponent = render(
       <MemoryRouter>
         <Main />
+        <LocationDisplay />
       </MemoryRouter>
     );
     expect(mainComponent).toEqual(newMainComponent);
+  });
+  test('should refetch', async (): Promise<void> => {
+    let refreshButton: Element;
+    const dispatchSpy = vi.spyOn(store, 'dispatch');
+    await waitFor(
+      () => {
+        expect(
+          (refreshButton = mainComponent.getByTestId(`refresh-button`))
+        ).toBeInTheDocument();
+        fireEvent.click(refreshButton);
+      },
+      { timeout: 2000 }
+    );
+    expect(dispatchSpy).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: expect.stringContaining('invalidateTags'),
+        payload: ['List'],
+      })
+    );
+  });
+  test('should navigate', async (): Promise<void> => {
+    setMockData(arrLuffy);
+    expect(mainComponent.getByTestId('location-display').textContent).toBe(
+      '/1'
+    );
+    await waitFor(
+      () => {
+        const page2Btn = mainComponent.getByRole('button', { name: '2' });
+        expect(page2Btn).toBeInTheDocument();
+        fireEvent.click(page2Btn);
+      },
+      { timeout: 2000 }
+    );
+    expect(mainComponent.getByTestId('location-display').textContent).toBe(
+      '/2'
+    );
   });
 });

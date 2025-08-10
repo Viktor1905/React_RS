@@ -3,14 +3,14 @@ import { beforeEach, describe } from 'vitest';
 import { arrLuffy } from './test-utils/arrays-for-test';
 import { render, RenderResult } from '@testing-library/react';
 import { CharacterCard } from '../src/components/Main/CharacterCard';
-import { AnimeCharacter } from '../src/api/api';
 import { MemoryRouter } from 'react-router';
 import store from '../src/app/store';
 import { Provider } from 'react-redux';
+import { CharacterSchema } from '../src/api/schemas';
 
 describe('character card component', (): void => {
   let card: RenderResult;
-  const character: AnimeCharacter = arrLuffy.data[0];
+  const character: CharacterSchema = arrLuffy.data[0];
   beforeEach((): void => {
     card = render(
       <MemoryRouter>

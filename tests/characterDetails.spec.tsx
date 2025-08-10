@@ -36,14 +36,16 @@ import {
 
 describe('Rendering App', (): void => {
   let appComponent: RenderResult;
+  let store: ReturnType<typeof createTestStore>;
   beforeEach(async (): Promise<void> => {
+    store = createTestStore();
     const initialEntries = [`/1`];
     resetMockData();
     setMockData(arrLuffy);
     setMockDetails({ data: arrLuffy.data[1] });
     appComponent = render(
       <MemoryRouter initialEntries={initialEntries}>
-        <Provider store={createTestStore()}>
+        <Provider store={store}>
           <App />
         </Provider>
       </MemoryRouter>
@@ -93,6 +95,52 @@ describe('Rendering App', (): void => {
         ).toBeInTheDocument();
       },
       { timeout: 1000 }
+    );
+  });
+  test('close characterDeatils if no data', async () => {
+    setMockData(arrLuffy);
+    setMockDetails(null);
+    appComponent = render(
+      <MemoryRouter initialEntries={['/1/details/1']}>
+        <Provider store={createTestStore()}>
+          <App />
+        </Provider>
+      </MemoryRouter>
+    );
+    await waitFor(
+      (): void => {
+        expect(
+          appComponent.getByText('Character not found')
+        ).toBeInTheDocument();
+      },
+      { timeout: 1000 }
+    );
+    const button = appComponent.getByTestId('close-btn-not-found');
+    fireEvent.click(button);
+    await waitFor(
+      (): void => {
+        expect(appComponent.queryByText('Character not found')).toBeNull();
+      },
+      { timeout: 1000 }
+    );
+  });
+  test('should refetch', async (): Promise<void> => {
+    let refreshButton: Element;
+    const dispatchSpy = vi.spyOn(store, 'dispatch');
+    await waitFor(
+      () => {
+        expect(
+          (refreshButton = appComponent.getByTestId(`details-refresh`))
+        ).toBeInTheDocument();
+        fireEvent.click(refreshButton);
+      },
+      { timeout: 2000 }
+    );
+    expect(dispatchSpy).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: 'charactersApi/invalidateTags',
+        payload: [{ type: 'Character', id: 2 }],
+      })
     );
   });
 });

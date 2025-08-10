@@ -17,6 +17,7 @@ export const charactersApi = createApi({
       string
     >({
       query: (search) => `?q=${search}`,
+      providesTags: ['List'],
       transformResponse: (response: unknown) => {
         const result = animeCharacterArraySchema.safeParse(response);
         if (!result.success) {
