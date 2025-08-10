@@ -1,6 +1,6 @@
 .close {
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
 }
 .wrapper {
   max-width: 300px;

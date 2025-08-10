@@ -11,9 +11,17 @@ import { MemoryRouter } from 'react-router';
 import { Provider } from 'react-redux';
 import store from '../src/app/store';
 import { arrLuffy } from './test-utils/arrays-for-test';
-import { mockApi } from './test-utils/mockApi';
+import { setMockData } from './test-utils/mockApi';
 import App from '../src/App';
-
+vi.mock('../src/api/api', async (importOriginal) => {
+  const { mockApi } = await import('./test-utils/mockApi');
+  return {
+    ...(await importOriginal<typeof import('../src/api/api')>()),
+    charactersApi: mockApi,
+    useGetCharactersQuery: mockApi.useGetCharactersQuery,
+    useGetCharacterByIdQuery: mockApi.useGetCharacterByIdQuery,
+  };
+});
 describe('PopUp Component', () => {
   let appComponent: RenderResult;
   let checkbox: HTMLElement | null = null;
@@ -25,7 +33,7 @@ describe('PopUp Component', () => {
     vi.restoreAllMocks();
   });
   beforeEach(async (): Promise<void> => {
-    mockApi.success(arrLuffy);
+    setMockData(arrLuffy);
     appComponent = render(
       <>
         <MemoryRouter initialEntries={['/']}>

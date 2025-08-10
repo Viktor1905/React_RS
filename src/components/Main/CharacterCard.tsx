@@ -1,5 +1,4 @@
 import { type ReactElement, useRef } from 'react';
-import { type AnimeCharacter } from '../../api/api';
 import styles from '@/components/Main/styles/character.module.css';
 import { useNavigate, useParams } from 'react-router';
 import {
@@ -8,9 +7,10 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../app/store';
+import { CharacterSchema } from '../../api/schemas';
 
 interface CardState {
-  character: AnimeCharacter;
+  character: CharacterSchema;
 }
 export function CharacterCard({ character }: CardState): ReactElement {
   const navigate = useNavigate();

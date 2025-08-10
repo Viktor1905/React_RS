@@ -1,7 +1,7 @@
 export const arrLuffy = {
   data: [
     {
-      mal_id: '1',
+      mal_id: 1,
       images: {
         jpg: {
           image_url:
@@ -14,7 +14,7 @@ export const arrLuffy = {
       url: 'https://myanimelist.net/character/207833/Luffy_Yamamoto',
     },
     {
-      mal_id: '2',
+      mal_id: 2,
       images: {
         jpg: {
           image_url:
@@ -27,7 +27,7 @@ export const arrLuffy = {
       url: 'https://myanimelist.net/character/40/Luffy_Monkey_D',
     },
     {
-      mal_id: '3',
+      mal_id: 3,
       images: {
         jpg: {
           image_url:
@@ -44,7 +44,7 @@ export const arrLuffy = {
 export const arrZoro = {
   data: [
     {
-      mal_id: '4',
+      mal_id: 4,
       images: {
         jpg: {
           image_url:
@@ -57,7 +57,7 @@ export const arrZoro = {
       url: 'https://myanimelist.net/character/261112/Zoro',
     },
     {
-      mal_id: '5',
+      mal_id: 5,
       images: {
         jpg: {
           image_url:
@@ -70,7 +70,7 @@ export const arrZoro = {
       url: 'https://myanimelist.net/character/62/Zoro_Roronoa',
     },
     {
-      mal_id: '6',
+      mal_id: 6,
       images: {
         jpg: {
           image_url:

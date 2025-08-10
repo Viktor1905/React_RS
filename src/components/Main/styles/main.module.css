@@ -7,6 +7,10 @@
 .section {
   width: fit-content;
 }
+.refresh {
+  align-self: flex-start;
+  margin: 10px 0 0 0;
+}
 .list {
   width: fit-content;
   list-style: none;

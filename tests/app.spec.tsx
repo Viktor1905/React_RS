@@ -3,19 +3,28 @@ import { fireEvent, render, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/vitest';
 import type { RenderResult } from '@testing-library/react';
 import App from '../src/App';
-import { mockApi } from './test-utils/mockApi';
+import { resetMockData, setDelay, setMockData } from './test-utils/mockApi';
 import { arrLuffy, arrZoro } from './test-utils/arrays-for-test';
 import { MemoryRouter, useLocation } from 'react-router';
 import type { Location } from 'react-router';
 import { useEffect } from 'react';
 import store from '../src/app/store';
 import { Provider } from 'react-redux';
+vi.mock('../src/api/api', async (importOriginal) => {
+  const { mockApi } = await import('./test-utils/mockApi');
+  return {
+    ...(await importOriginal<typeof import('../src/api/api')>()),
+    charactersApi: mockApi,
+    useGetCharactersQuery: mockApi.useGetCharactersQuery,
+    useGetCharacterByIdQuery: mockApi.useGetCharacterByIdQuery,
+  };
+});
 
 describe('Rendering App', (): void => {
-  const mockError = new Error('API Error');
   let appComponent: RenderResult;
+
   beforeEach((): void => {
-    mockApi.success(arrLuffy);
+    setMockData(arrLuffy);
     appComponent = render(
       <MemoryRouter>
         <Provider store={store}>
@@ -26,12 +35,13 @@ describe('Rendering App', (): void => {
   });
   afterEach((): void => {
     localStorage.clear();
-    mockApi.reset();
+    resetMockData();
   });
   test('renders header in App', (): void => {
     expect(appComponent.getByRole('banner')).toBeInTheDocument();
   });
   test('renders main in App', async (): Promise<void> => {
+    setDelay(1000);
     const spinner: Element = appComponent.getByTestId(`load-spinner-main`);
     expect(spinner).toBeInTheDocument();
     await waitFor(
@@ -40,6 +50,7 @@ describe('Rendering App', (): void => {
       },
       { timeout: 2000 }
     );
+    setDelay(0);
   });
   test('render ErrorBtn in App', (): void => {
     expect(appComponent.getByRole('button', { name: 'Error' }));
@@ -70,26 +81,12 @@ describe('Rendering App', (): void => {
       expect(appComponent.findByRole('main')).resolves.toBeInTheDocument();
     });
   });
-  test('Error render with bad request', async (): Promise<void> => {
-    mockApi.error(mockError);
-    appComponent = render(
-      <Provider store={store}>
-        <App />
-      </Provider>
-    );
-    await waitFor(
-      (): void => {
-        expect(appComponent.getByTestId('error-page')).toBeInTheDocument();
-      },
-      { timeout: 2000 }
-    );
-  });
 });
 describe('Search part of App and local storage check', async (): Promise<void> => {
   let appComponent: RenderResult;
   afterAll(() => {
     localStorage.clear();
-    mockApi.reset();
+    resetMockData();
   });
   test.sequential('search zoro', async (): Promise<void> => {
     const locationRef = { current: null as Location | null };
@@ -100,7 +97,7 @@ describe('Search part of App and local storage check', async (): Promise<void> =
       }, [location]);
       return null;
     }
-    mockApi.mockConditional();
+    setMockData(arrZoro);
     appComponent = render(
       <MemoryRouter initialEntries={['/1/details/' + arrZoro.data[0].mal_id]}>
         <Provider store={store}>

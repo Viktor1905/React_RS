@@ -1,35 +1,38 @@
 import { type ReactElement } from 'react';
-import type {
-  AnimeCharacter,
-  AnimeCharacterArrayResponse,
-} from '../../api/api.ts';
 import { CharacterCard } from './CharacterCard';
 import styles from '@/components/Main/styles/main.module.css';
 import { useNavigate, useParams } from 'react-router';
+import { ErrorPage } from '../Error/ErrorPage';
+import { charactersApi, useGetCharactersQuery } from '../../api/api';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
+import { CharacterSchema } from '../../api/schemas';
+import { useDispatch } from 'react-redux';
 
-interface MainProps {
-  result: AnimeCharacterArrayResponse | null;
-  loading: boolean;
-}
-
-export function Main({ result, loading }: MainProps): ReactElement {
+export function Main(): ReactElement {
   const navigate = useNavigate();
   const { page } = useParams();
+  const dispatch = useDispatch();
   const currentPage = page ? parseInt(page) : 1;
   const perPage = 6;
-
-  if (loading) {
+  const [query, setQuery] = useLocalStorage<string | null>('query', 'luffy');
+  const { data, error, isLoading } = useGetCharactersQuery(query ?? 'luffy');
+  if (isLoading) {
     return (
       <div className={styles.spinner} data-testid="load-spinner-main"></div>
     );
   }
-
-  const isEmpty: number = result?.data.length || 0;
+  if (error) {
+    return <ErrorPage error={error} onRetry={() => setQuery('luffy')} />;
+  }
+  if (!data?.data) {
+    return <p>No data available</p>;
+  }
+  const isEmpty: number = data?.data.length ?? 0;
   const totalPages = Math.ceil(isEmpty / perPage);
 
   const offset = (currentPage - 1) * perPage;
-  const currentItems: AnimeCharacter[] =
-    result?.data.slice(offset, offset + perPage) ?? [];
+  const currentItems: CharacterSchema[] =
+    data.data.slice(offset, offset + perPage) ?? [];
 
   const handlePageChange = (newPage: number): void => {
     navigate(`/${newPage}`);
@@ -37,11 +40,20 @@ export function Main({ result, loading }: MainProps): ReactElement {
 
   return (
     <main className={styles.wrapper}>
-      {isEmpty && result !== null ? (
+      {isEmpty ? (
         <>
           <div className={styles.section}>
+            <button
+              className={styles.refresh}
+              onClick={() =>
+                dispatch(charactersApi.util.invalidateTags(['List']))
+              }
+            >
+              {' '}
+              Refresh
+            </button>
             <ul className={styles.list}>
-              {currentItems.map((char: AnimeCharacter) => (
+              {currentItems.map((char: CharacterSchema) => (
                 <CharacterCard key={char.url} character={char} />
               ))}
             </ul>

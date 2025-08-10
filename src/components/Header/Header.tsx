@@ -7,27 +7,24 @@ import {
   useState,
 } from 'react';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
-import { NavLink } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
 import { GetThemeButton } from './components/ThemeButton/ThemeButton';
-interface HeaderProps {
-  onSearch: (q: string) => void;
-}
 
-export function Header({ onSearch }: HeaderProps): ReactElement {
-  const [search, setSearch] = useLocalStorage<string>('query', '');
+export function Header(): ReactElement {
+  const [search, setSearch] = useLocalStorage<string>('query', 'luffy');
   const [inputValue, setInputValue] = useState(search);
   const inputRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     setInputValue(event.target.value);
   }
-
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     if (inputRef.current && inputRef.current.value) {
       const inputValue = inputRef.current.value;
       event.preventDefault();
       setSearch(inputValue);
-      onSearch(inputValue);
+      navigate('/');
     }
   }
   return (

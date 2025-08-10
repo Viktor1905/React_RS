@@ -1,54 +1,81 @@
 import '@testing-library/jest-dom/vitest';
-import { beforeEach, describe, expect } from 'vitest';
-import { render, RenderResult } from '@testing-library/react';
+import { beforeAll, beforeEach, describe, expect } from 'vitest';
+import { render, RenderResult, waitFor } from '@testing-library/react';
 import { Main } from '../src/components/Main/Main';
-import { arrLuffy, arrZoro, emptyArr } from './test-utils/arrays-for-test';
+import { arrLuffy, arrZoro } from './test-utils/arrays-for-test';
 import { MemoryRouter } from 'react-router';
 import { Provider } from 'react-redux';
-import store from '../src/app/store';
-
+import { resetMockData, setMockData } from './test-utils/mockApi';
+import App from '../src/App';
+import { createTestStore } from './test-utils/test-store';
+vi.mock('../src/api/api', async (importOriginal) => {
+  const { mockApi } = await import('./test-utils/mockApi');
+  return {
+    ...(await importOriginal<typeof import('../src/api/api')>()),
+    charactersApi: mockApi,
+    useGetCharactersQuery: mockApi.useGetCharactersQuery,
+    useGetCharacterByIdQuery: mockApi.useGetCharacterByIdQuery,
+  };
+});
 describe('Main component', (): void => {
+  let store: ReturnType<typeof createTestStore>;
   let mainComponent: RenderResult;
-  beforeEach((): void => {
+  beforeEach(() => {
+    store = createTestStore();
+    localStorage.clear();
     mainComponent = render(
-      <MemoryRouter>
+      <MemoryRouter initialEntries={['/1']}>
         <Provider store={store}>
-          <Main result={arrLuffy} loading={false} />
+          <App />
         </Provider>
       </MemoryRouter>
     );
   });
-  test('should render main', (): void => {
-    expect(mainComponent.getByRole('main')).toBeInTheDocument();
+  beforeAll(() => {
+    vi.mock('../../hooks/useLocalStorage', () => ({
+      useLocalStorage: () => [null, vi.fn()],
+    }));
   });
-  test('render has list', (): void => {
-    expect(mainComponent.getByRole('list')).toBeInTheDocument();
+  afterEach(() => {
+    vi.clearAllMocks();
   });
-  test('should render is No data', (): void => {
-    mainComponent = render(
-      <MemoryRouter>
-        <Provider store={store}>
-          <Main result={emptyArr} loading={false} />)
-        </Provider>
-      </MemoryRouter>
+  test('should render main', async (): Promise<void> => {
+    setMockData(arrLuffy);
+    await waitFor(
+      () => expect(mainComponent.getByRole('main')).toBeInTheDocument(),
+      { timeout: 1000 }
     );
-    expect(mainComponent.getByText('No data')).toBeInTheDocument();
+  });
+  test('render has list', async (): Promise<void> => {
+    await waitFor(
+      () => expect(mainComponent.getByRole('list')).toBeInTheDocument(),
+      { timeout: 1000 }
+    );
+  });
+  test('debug API mock', async () => {
+    setMockData(arrLuffy);
+  });
+  test('should render is No data', async (): Promise<void> => {
+    resetMockData();
+    await waitFor(
+      () => {
+        expect(
+          mainComponent.getByText('No data available')
+        ).toBeInTheDocument();
+      },
+      { timeout: 2000 }
+    );
   });
   test('should render spinner', (): void => {
-    mainComponent = render(
-      <MemoryRouter>
-        <Provider store={store}>
-          <Main result={arrLuffy} loading={true} />
-        </Provider>
-      </MemoryRouter>
-    );
+    setMockData(arrLuffy);
     const spinner: Element = mainComponent.getByTestId(`load-spinner-main`);
     expect(spinner).toBeInTheDocument();
   });
   test.fails('should render another array', (): void => {
+    setMockData(arrZoro);
     const newMainComponent = render(
       <MemoryRouter>
-        <Main result={arrZoro} loading={false} />
+        <Main />
       </MemoryRouter>
     );
     expect(mainComponent).toEqual(newMainComponent);

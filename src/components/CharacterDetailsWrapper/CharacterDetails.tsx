@@ -1,67 +1,73 @@
-import { type ReactElement, useEffect, useState } from 'react';
-import {
-  type AnimeFullCharacter,
-  type AnimeCharacterResponse,
-  getOneCharacter,
-} from '../../api/api';
+import { type ReactElement } from 'react';
 import styles from '@/components/CharacterDetailsWrapper/styles/characterDetails.module.css';
 import stylesSpinner from '@/components/Main/styles/main.module.css';
 import { useNavigate, useParams } from 'react-router';
+import { charactersApi, useGetCharacterByIdQuery } from '../../api/api';
+import { useDispatch } from 'react-redux';
 
 export function CharacterDetails({ id }: CharacterDetailsProps): ReactElement {
-  const [character, setCharacter] = useState<AnimeFullCharacter | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { data, isLoading, error } = useGetCharacterByIdQuery(id.toString());
   const { page } = useParams();
+  const dispatch = useDispatch();
   const currentPage = page ? parseInt(page) : 1;
   const navigate = useNavigate();
-  useEffect(() => {
-    setLoading(true);
-    getOneCharacter(id.toString())
-      .then((data: AnimeCharacterResponse) => {
-        setCharacter(data.data);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
-  }, [id]);
   function closeDetails() {
     navigate(`/${currentPage}/`);
   }
-  if (loading)
+
+  if (isLoading)
     return (
       <div
         className={stylesSpinner.spinner}
         data-testid="character-details-spinner"
-      />
+      ></div>
     );
-  if (!character) return <div>Character not found.</div>;
+  if (error) return <div>Error loading character</div>;
+  if (!data?.data)
+    return (
+      <div>
+        <div className={styles.close}>
+          <button onClick={closeDetails}> Close </button>
+        </div>
+        Character not found
+      </div>
+    );
+  const { url, anime, name, name_kanji, about, images } = data.data;
+
   return (
     <div className={styles.wrapper} data-testid="detailed">
       <div className={styles.close}>
+        <button
+          className={styles.refresh}
+          onClick={() =>
+            dispatch(
+              charactersApi.util.invalidateTags([{ type: 'Character', id }])
+            )
+          }
+        >
+          {' '}
+          Refresh
+        </button>
         <button onClick={closeDetails}> Close </button>
       </div>
-      <h2>{character.name}</h2>
-      <img
-        src={character.images.jpg.image_url}
-        alt={character.name}
-        className={styles.img}
-      />
+      <h2>{name}</h2>
+      <img src={images.jpg.image_url} alt={name} className={styles.img} />
       <p>
         Name kanji:{' '}
-        <span className={styles.text}>{character.name_kanji || 'No info'}</span>
+        <span className={styles.text}>{name_kanji || 'No info'}</span>
       </p>
       <p>
         Anime:{' '}
         <span className={styles.text}>
-          {character.anime[0].anime.title || 'No info'}
+          {anime[0] ? anime[0].anime.title : 'No info'}
         </span>
       </p>
       <p>
-        About:{' '}
-        <span className={styles.text}>{character.about || 'No info'}</span>
+        About: <span className={styles.text}>{about || 'No info'}</span>
       </p>
       <p>
         More info:{' '}
-        <a href={character.url} target="_blank" rel="noreferrer">
+        <a href={url} target="_blank" rel="noreferrer">
           Here
         </a>
       </p>
