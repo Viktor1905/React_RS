@@ -1,1 +1,5 @@
-npm run lint
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo " Husky hook works!"
+exit 1
