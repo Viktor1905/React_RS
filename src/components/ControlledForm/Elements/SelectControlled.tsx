@@ -6,7 +6,7 @@ export function SelectControlled({ register }: InputElementProps) {
 
   return (
     <div className={styles.inputWrapper}>
-      <legend>{'Choose your country'}:</legend>
+      <legend className={styles.bold}>{'Choose your country'}:</legend>
       <select {...register}>
         {countries.map((country) => (
           <option key={country} value={country}>

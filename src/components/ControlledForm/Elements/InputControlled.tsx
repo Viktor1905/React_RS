@@ -10,26 +10,31 @@ export function InputControlled({
 }: InputElementProps) {
   const type = password ? 'password' : inputTypes[label] || 'text';
   const gender = label === 'gender';
-  console.log(errorMessage);
   if (gender) {
     return (
       <div className={styles.inputWrapper}>
-        <legend>{capitalizeFirstLetter(label)}:</legend>
+        <legend className={styles.bold}>{capitalizeFirstLetter(label)}:</legend>
         <div className={styles.radioWrapper}>
           <label htmlFor={'Male'}>Male:</label>
           <input {...register} type={type} id={'Male'} value={'male'} />
         </div>
         <div className={styles.radioWrapper}>
           <label htmlFor={'Female'}>Female: </label>
-          <input {...register} type={type} id={'Female'} value={'Female'} />
+          <input {...register} type={type} id={'Female'} value={'female'} />
         </div>
         {errorMessage && <span className={styles.error}>{errorMessage}</span>}
       </div>
     );
   }
   return (
-    <div className={styles.inputWrapper}>
-      <label htmlFor={label}>{capitalizeFirstLetter(label)}: </label>
+    <div
+      className={
+        type === 'checkbox' ? styles.radioWrapper : styles.inputWrapper
+      }
+    >
+      <label htmlFor={label} className={styles.bold}>
+        {capitalizeFirstLetter(label)}:{' '}
+      </label>
       <input {...register} type={type} placeholder={placeholder || ''} />
       {errorMessage && <span className={styles.error}>{errorMessage}</span>}
     </div>

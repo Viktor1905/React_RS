@@ -4,7 +4,7 @@ export function SelectUncontrolled() {
   return (
     <>
       <label htmlFor="city-select">Choose your country: </label>
-      <select name="city" id="city-select">
+      <select name="country" id="city-select">
         {countries.map((country) => (
           <option key={country} value={country}>
             {country}

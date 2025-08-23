@@ -1,10 +1,10 @@
 import styles from '../../../styles/form.module.css';
 
-export function RadioUncontrolled({ gender, checked }: InputElementProps) {
+export function RadioUncontrolled({ gender }: InputElementProps) {
   return (
     <div className={styles.radioWrapper}>
       <label htmlFor={gender}>{gender}</label>
-      <input type={'radio'} id={gender} value={gender} name="gender" checked={checked} />
+      <input type={'radio'} id={gender} name="gender" value={gender} />
     </div>
   );
 }

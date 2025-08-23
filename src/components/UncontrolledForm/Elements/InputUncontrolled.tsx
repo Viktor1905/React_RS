@@ -7,6 +7,7 @@ export function InputUncontrolled({
   label,
   password,
   placeholder,
+  error,
 }: InputElementProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const type = password ? 'password' : inputTypes[label] || 'text';
@@ -18,19 +19,26 @@ export function InputUncontrolled({
         <legend>{capitalizeFirstLetter(label)}:</legend>
         <RadioUncontrolled gender={'male'} checked={true} />
         <RadioUncontrolled gender={'female'} checked={false} />
+        {error && <span className={styles.error}>{error}</span>}
       </div>
     );
   }
 
   return (
-    <div className={styles.inputWrapper}>
+    <div
+      className={
+        type === 'checkbox' ? styles.radioWrapper : styles.inputWrapper
+      }
+    >
       <label htmlFor={label}>{capitalizeFirstLetter(label)}: </label>
       <input
         type={type}
         placeholder={placeholder || ''}
         id={label}
         ref={inputRef}
+        name={label}
       />
+      {error && <span className={styles.error}>{error}</span>}
     </div>
   );
 }
@@ -47,6 +55,7 @@ type InputElementProps = {
     | 'accept Terms and Conditions';
   password: boolean;
   placeholder?: string;
+  error?: string;
 };
 
 const inputTypes: Record<InputElementProps['label'], string> = {
@@ -59,3 +68,4 @@ const inputTypes: Record<InputElementProps['label'], string> = {
   gender: 'radio',
   'accept Terms and Conditions': 'checkbox',
 };
+

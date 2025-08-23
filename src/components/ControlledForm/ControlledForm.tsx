@@ -79,14 +79,12 @@ export function ControlledForm({
       <InputControlled
         label={'accept Terms and Conditions'}
         password={false}
-        placeholder={'1Ws!'}
         register={register('accept Terms and Conditions')}
         errorMessage={errors['accept Terms and Conditions']?.message}
       />
       <InputControlled
         label={'upload file'}
         password={false}
-        placeholder={'1Ws!'}
         register={register('upload file')}
         errorMessage={
           typeof errors['upload file']?.message === 'string'
