@@ -1,8 +1,9 @@
 import { useForm } from 'react-hook-form';
 import { useEffect, useRef } from 'react';
 import { effectFunction } from '../../utils/useEffectFunction.ts';
-import { InputControlled } from '../InputElement/InputControlled.tsx';
-import { SelectControlled } from '../SelectElement/SelectControlled.tsx';
+import { InputControlled } from './Elements/InputControlled.tsx';
+import { SelectControlled } from './Elements/SelectControlled.tsx';
+import styles from '../../styles/form.module.css';
 
 export function ControlledForm({
   closeWindow,
@@ -16,7 +17,12 @@ export function ControlledForm({
     [whichOpen, closeWindow]
   );
   return (
-    <form onSubmit={handleSubmit(closeWindow)} ref={modalRef}>
+    <form
+      onSubmit={handleSubmit(closeWindow)}
+      ref={modalRef}
+      className={styles.form}
+    >
+      <legend>Controlled form</legend>
       <InputControlled
         label={'name'}
         password={false}
@@ -65,7 +71,7 @@ export function ControlledForm({
         register={register('upload file')}
       />
       <SelectControlled register={register('country')} />
-      <button type="submit" ref={submitRef}>
+      <button type="submit" ref={submitRef} className={styles.submit}>
         Close
       </button>
     </form>

@@ -1,0 +1,30 @@
+.form {
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    background: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    gap: 10px;
+}
+.inputWrapper {
+    display: flex;
+    gap: 1rem;
+}
+.inputWrapper label {
+    flex-shrink: 0;
+}
+.inputWrapper input {
+    flex-grow: 1;
+    width: 100%;
+    min-width: 0;
+}
+.radioWrapper {
+    display: flex;
+    justify-content: center;
+}
+.submit{
+    margin: 1rem auto;
+    width: 30%;
+}

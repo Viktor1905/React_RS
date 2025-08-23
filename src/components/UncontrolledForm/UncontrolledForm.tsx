@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { effectFunction } from '../../utils/useEffectFunction.ts';
-import { InputUncontrolled } from '../InputElement/InputUncontrolled.tsx';
-import { SelectUncontrolled } from '../SelectElement/SelectUncontrolled.tsx';
+import { InputUncontrolled } from './Elements/InputUncontrolled.tsx';
+import { SelectUncontrolled } from './Elements/SelectUncontrolled.tsx';
+import styles from '../../styles/form.module.css';
 
 export function UncontrolledForm({
   closeWindow,
@@ -14,7 +15,8 @@ export function UncontrolledForm({
     [whichOpen, closeWindow]
   );
   return (
-    <form onSubmit={closeWindow} ref={modalRef}>
+    <form onSubmit={closeWindow} ref={modalRef} className={styles.form}>
+      <legend>Uncontrolled form</legend>
       <InputUncontrolled label={'name'} password={false} placeholder={'Adam'} />
       <InputUncontrolled label={'age'} password={false} placeholder={'20'} />
       <InputUncontrolled
@@ -44,7 +46,7 @@ export function UncontrolledForm({
         placeholder={'1Ws!'}
       />
       <SelectUncontrolled />
-      <button type="submit" ref={submitRef}>
+      <button type="submit" ref={submitRef} className={styles.submit}>
         Close
       </button>
     </form>

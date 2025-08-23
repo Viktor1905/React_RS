@@ -22,14 +22,14 @@ function App() {
       {whichOpen &&
         createPortal(
           whichOpen === 'controlled' ? (
-            <div role="dialog">
+            <div role="dialog" className={styles.modalContainer}>
               <ControlledForm
                 closeWindow={() => setWhichOpen('')}
                 whichOpen={whichOpen}
               />
             </div>
           ) : (
-            <div role="dialog">
+            <div role="dialog" className={styles.modalContainer}>
               <UncontrolledForm
                 closeWindow={() => setWhichOpen('')}
                 whichOpen={whichOpen}

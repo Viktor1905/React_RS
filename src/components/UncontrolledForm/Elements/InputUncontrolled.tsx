@@ -1,34 +1,37 @@
-import type { UseFormRegisterReturn } from 'react-hook-form';
-import { capitalizeFirstLetter } from '../../utils/capitalizeFirstLetter.ts';
+import { useRef } from 'react';
+import { capitalizeFirstLetter } from '../../../utils/capitalizeFirstLetter.ts';
+import { RadioUncontrolled } from './RadioUncontrolled.tsx';
+import styles from '../../../styles/form.module.css';
 
-export function InputControlled({
+export function InputUncontrolled({
   label,
-  register,
   password,
   placeholder,
 }: InputElementProps) {
+  const inputRef = useRef<HTMLInputElement>(null);
   const type = password ? 'password' : inputTypes[label] || 'text';
   const gender = label === 'gender';
+
   if (gender) {
     return (
-      <>
+      <div className={styles.inputWrapper}>
         <legend>{capitalizeFirstLetter(label)}:</legend>
-        <div>
-          <input {...register} type={type} id={'Male'} value={'male'} />
-          <label htmlFor={'Male'}>Male</label>
-        </div>
-        <div>
-          <input {...register} type={type} id={'Female'} value={'Female'} />
-          <label htmlFor={'Female'}>Female</label>
-        </div>
-      </>
+        <RadioUncontrolled gender={'male'} />
+        <RadioUncontrolled gender={'female'} />
+      </div>
     );
   }
+
   return (
-    <>
+    <div className={styles.inputWrapper}>
       <label htmlFor={label}>{capitalizeFirstLetter(label)}: </label>
-      <input {...register} type={type} placeholder={placeholder || ''} />
-    </>
+      <input
+        type={type}
+        placeholder={placeholder || ''}
+        id={label}
+        ref={inputRef}
+      />
+    </div>
   );
 }
 
@@ -44,9 +47,8 @@ type InputElementProps = {
     | 'accept Terms and Conditions';
   password: boolean;
   placeholder?: string;
-  register: UseFormRegisterReturn;
-  errorMessage?: string;
 };
+
 const inputTypes: Record<InputElementProps['label'], string> = {
   name: 'text',
   email: 'email',
