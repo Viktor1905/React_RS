@@ -1,12 +1,14 @@
 import { useForm } from 'react-hook-form';
 import { useEffect, useRef } from 'react';
 import { effectFunction } from '../../utils/useEffectFunction.ts';
+import { InputControlled } from '../InputElement/InputControlled.tsx';
+import { SelectControlled } from '../SelectElement/SelectControlled.tsx';
 
 export function ControlledForm({
   closeWindow,
   whichOpen,
 }: ControlledFormProps) {
-  const { handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm();
   const modalRef = useRef<HTMLFormElement>(null);
   const submitRef = useRef<HTMLButtonElement>(null);
   useEffect(
@@ -15,10 +17,54 @@ export function ControlledForm({
   );
   return (
     <form onSubmit={handleSubmit(closeWindow)} ref={modalRef}>
-      <label>Test</label>
-      <input></input>
-      <label>Test controlled</label>
-      <input></input>
+      <InputControlled
+        label={'name'}
+        password={false}
+        placeholder={'Adam'}
+        register={register('name')}
+      />
+      <InputControlled
+        label={'age'}
+        password={false}
+        placeholder={'20'}
+        register={register('age')}
+      />
+      <InputControlled
+        label={'email'}
+        password={false}
+        placeholder={'email@example.com'}
+        register={register('email')}
+      />
+      <InputControlled
+        label={'password'}
+        password={false}
+        placeholder={'1Ws!'}
+        register={register('password')}
+      />
+      <InputControlled
+        label={'password confirmation'}
+        password={false}
+        placeholder={'1Ws!'}
+        register={register('password confirmation')}
+      />
+      <InputControlled
+        label={'gender'}
+        password={false}
+        register={register('gender')}
+      />
+      <InputControlled
+        label={'accept Terms and Conditions'}
+        password={false}
+        placeholder={'1Ws!'}
+        register={register('accept Terms and Conditions')}
+      />
+      <InputControlled
+        label={'upload file'}
+        password={false}
+        placeholder={'1Ws!'}
+        register={register('upload file')}
+      />
+      <SelectControlled register={register('country')} />
       <button type="submit" ref={submitRef}>
         Close
       </button>

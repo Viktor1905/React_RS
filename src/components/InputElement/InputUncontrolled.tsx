@@ -1,0 +1,78 @@
+import { useRef } from 'react';
+import { capitalizeFirstLetter } from '../../utils/capitalizeFirstLetter.ts';
+
+export function InputUncontrolled({
+  label,
+  password,
+  placeholder,
+}: InputElementProps) {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const type = password ? 'password' : inputTypes[label] || 'text';
+  const gender = label === 'gender';
+
+  if (gender) {
+    return (
+      <>
+        <legend>{capitalizeFirstLetter(label)}:</legend>
+        <div>
+          <input
+            type={type}
+            id="Male"
+            value="male"
+            name="gender"
+            ref={inputRef}
+          />
+          <label htmlFor="Male">Male</label>
+        </div>
+        <div>
+          <input
+            type={type}
+            id="Female"
+            value="female"
+            name="gender"
+            ref={inputRef}
+          />
+          <label htmlFor="Female">Female</label>
+        </div>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <label htmlFor={label}>{capitalizeFirstLetter(label)}:</label>
+      <input
+        type={type}
+        placeholder={placeholder || ''}
+        id={label}
+        ref={inputRef}
+      />
+    </>
+  );
+}
+
+type InputElementProps = {
+  label:
+    | 'name'
+    | 'email'
+    | 'password'
+    | 'age'
+    | 'password confirmation'
+    | 'upload file'
+    | 'gender'
+    | 'accept Terms and Conditions';
+  password: boolean;
+  placeholder?: string;
+};
+
+const inputTypes: Record<InputElementProps['label'], string> = {
+  name: 'text',
+  email: 'email',
+  password: 'password',
+  'password confirmation': 'password',
+  age: 'number',
+  'upload file': 'file',
+  gender: 'radio',
+  'accept Terms and Conditions': 'checkbox',
+};
