@@ -16,8 +16,8 @@ export function InputUncontrolled({
     return (
       <div className={styles.inputWrapper}>
         <legend>{capitalizeFirstLetter(label)}:</legend>
-        <RadioUncontrolled gender={'male'} />
-        <RadioUncontrolled gender={'female'} />
+        <RadioUncontrolled gender={'male'} checked={true} />
+        <RadioUncontrolled gender={'female'} checked={false} />
       </div>
     );
   }

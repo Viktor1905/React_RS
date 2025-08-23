@@ -6,9 +6,11 @@ export function InputControlled({
   register,
   password,
   placeholder,
+  errorMessage,
 }: InputElementProps) {
   const type = password ? 'password' : inputTypes[label] || 'text';
   const gender = label === 'gender';
+  console.log(errorMessage);
   if (gender) {
     return (
       <div className={styles.inputWrapper}>
@@ -21,6 +23,7 @@ export function InputControlled({
           <label htmlFor={'Female'}>Female: </label>
           <input {...register} type={type} id={'Female'} value={'Female'} />
         </div>
+        {errorMessage && <span className={styles.error}>{errorMessage}</span>}
       </div>
     );
   }
@@ -28,6 +31,7 @@ export function InputControlled({
     <div className={styles.inputWrapper}>
       <label htmlFor={label}>{capitalizeFirstLetter(label)}: </label>
       <input {...register} type={type} placeholder={placeholder || ''} />
+      {errorMessage && <span className={styles.error}>{errorMessage}</span>}
     </div>
   );
 }
