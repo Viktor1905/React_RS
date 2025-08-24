@@ -4,6 +4,7 @@
     min-height: 40vh;
     justify-content: space-around;
     align-items: center;
+    padding: 20px 0 0 0;
 }
 .tile {
     max-width: 500px;

@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react';
+import { type ReactElement, useEffect, useState } from 'react';
 import styles from './styles.module.css';
 
 type controlledDataProps = {
@@ -7,6 +7,17 @@ type controlledDataProps = {
 export function RenderData({
   submittedData,
 }: controlledDataProps): ReactElement {
+  const [isNewData, setIsNewData] = useState(false);
+
+  useEffect(() => {
+    if (submittedData) {
+      setIsNewData(true);
+      const timer = setTimeout(() => {
+        setIsNewData(false);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [submittedData]);
   if (!submittedData) {
     return <div>No data submitted yet</div>;
   }
@@ -18,7 +29,7 @@ export function RenderData({
     return <div>No data submitted yet</div>;
   }
   return (
-    <div className={styles.tile}>
+    <div className={`${styles.tile} ${isNewData ? styles.rerender : ''}`}>
       <div>
         <b>Name:</b> {submittedData.name}
       </div>

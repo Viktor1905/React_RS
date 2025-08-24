@@ -7,7 +7,7 @@ import { z, ZodError } from 'zod';
 import { AutocompleteCountry } from './Elements/AutocompleteCountry/AutocompleteCountry.tsx';
 import { useDispatch } from 'react-redux';
 import { setSubmittedUncontrolledData } from '../../store/slice/uncontrolledSlice.ts';
-import { toBase64 } from '../ControlledForm/ControlledForm.tsx';
+import { toBase64 } from '../../utils/toBase64.ts';
 
 export function UncontrolledForm({
   closeWindow,
