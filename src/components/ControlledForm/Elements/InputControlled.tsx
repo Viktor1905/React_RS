@@ -35,7 +35,13 @@ export function InputControlled({
       <label htmlFor={label} className={styles.bold}>
         {capitalizeFirstLetter(label)}:{' '}
       </label>
-      <input {...register} type={type} placeholder={placeholder || ''} />
+      <input
+        aria-label={label}
+        {...register}
+        type={type}
+        placeholder={placeholder || ''}
+        data-testid={label === 'upload file' ? 'upload-file' : ''}
+      />
       {errorMessage && <span className={styles.error}>{errorMessage}</span>}
     </div>
   );

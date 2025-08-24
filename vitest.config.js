@@ -13,7 +13,7 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       include: ['src/**/*.ts', 'src/**/*.tsx'],
-      exclude: ['**/node_modules/**', '**/.husky/**', '**/.idea/**'],
+      exclude: ['**/node_modules/**', '**/.husky/**', '**/.idea/**','src/main.tsx', '**/src/tests/**'],
       thresholds: {
         statements: 80,
         branches: 50,

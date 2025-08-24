@@ -69,7 +69,12 @@ export function UncontrolledForm({
     }
   }
   return (
-    <form onSubmit={submit} ref={modalRef} className={styles.form}>
+    <form
+      onSubmit={submit}
+      ref={modalRef}
+      className={styles.form}
+      data-testid="uncontrolled-form"
+    >
       <legend>Uncontrolled form</legend>
       <InputUncontrolled
         label={'name'}

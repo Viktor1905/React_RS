@@ -34,33 +34,30 @@ export function ControlledForm({
     [whichOpen, closeWindow]
   );
   const onSubmit = async (data: FullSchemaData) => {
-    try {
-      let fileData = null;
-      if (data['upload file']?.[0]) {
-        const file = data['upload file'][0];
-        const fileInfo = await toBase64(file);
-        fileData = {
-          base64: fileInfo.base64,
-          fileName: file.name,
-          fileType: file.type,
-        };
-      }
-      const cleanedData = {
-        ...data,
-        ['upload file']: fileData,
+    let fileData = null;
+    if (data['upload file']?.[0]) {
+      const file = data['upload file'][0];
+      const fileInfo = await toBase64(file);
+      fileData = {
+        base64: fileInfo.base64,
+        fileName: file.name,
+        fileType: file.type,
       };
-      dispatch(setSubmittedData(cleanedData));
-
-      closeWindow();
-    } catch (err) {
-      console.error('Submit error:', err);
     }
+    const cleanedData = {
+      ...data,
+      ['upload file']: fileData,
+    };
+    dispatch(setSubmittedData(cleanedData));
+
+    closeWindow();
   };
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       ref={modalRef}
       className={styles.form}
+      data-testid="controlled-form"
     >
       <legend>Controlled form</legend>
       <InputControlled

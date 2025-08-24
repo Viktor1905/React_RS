@@ -10,7 +10,7 @@ function App() {
   const [whichOpen, setWhichOpen] = useState('');
   return (
     <>
-      <div className={styles.buttonWrapper}>
+      <div className={styles.buttonWrapper} data-testid="button-wrapper">
         <button onClick={() => setWhichOpen('uncontrolled')}>
           {' '}
           Open uncontrolled form
