@@ -1,22 +1,26 @@
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { useEffect, useRef } from 'react';
 import { effectFunction } from '../../utils/useEffectFunction.ts';
 import { InputControlled } from './Elements/InputControlled.tsx';
-import { SelectControlled } from './Elements/SelectControlled.tsx';
 import styles from '../../styles/form.module.css';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { setSubmittedData } from '../../store/slice/controlledSlice.ts';
 import {
   fullSchema,
   type FullSchemaData,
 } from '../../utils/schema/baseSchema.ts';
+import { useDispatch } from 'react-redux';
+import { AutocompleteCountry } from './Elements/AutocompleteCountry/AutocompleteCountry.tsx';
 
 export function ControlledForm({
   closeWindow,
   whichOpen,
 }: ControlledFormProps) {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm<FullSchemaData>({
     mode: 'onChange',
@@ -28,9 +32,32 @@ export function ControlledForm({
     () => effectFunction('controlled', modalRef, closeWindow, whichOpen),
     [whichOpen, closeWindow]
   );
+  const onSubmit = async (data: FullSchemaData) => {
+    try {
+      let fileData = null;
+      if (data['upload file']?.[0]) {
+        const file = data['upload file'][0];
+        const base64 = await toBase64(file);
+        fileData = {
+          base64,
+          fileName: file.name,
+          fileType: file.type,
+        };
+      }
+      const cleanedData = {
+        ...data,
+        ['upload file']: fileData,
+      };
+      dispatch(setSubmittedData(cleanedData));
+
+      closeWindow();
+    } catch (err) {
+      console.error('Submit error:', err);
+    }
+  };
   return (
     <form
-      onSubmit={handleSubmit(closeWindow)}
+      onSubmit={handleSubmit(onSubmit)}
       ref={modalRef}
       className={styles.form}
     >
@@ -92,8 +119,25 @@ export function ControlledForm({
             : undefined
         }
       />
-      <SelectControlled register={register('country')} />
-      <button type="submit" ref={submitRef} className={styles.submit}>
+      <Controller
+        name="country"
+        control={control}
+        render={({ field }) => (
+          <AutocompleteCountry
+            label="Country"
+            id="country"
+            value={field.value || ''}
+            onChange={field.onChange}
+            error={errors.country?.message || ''}
+          />
+        )}
+      />
+      <button
+        type="submit"
+        ref={submitRef}
+        className={styles.submit}
+        disabled={Object.keys(errors).length > 0}
+      >
         Submit
       </button>
     </form>
@@ -103,3 +147,11 @@ type ControlledFormProps = {
   closeWindow: () => void;
   whichOpen: string;
 };
+function toBase64(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = reject;
+  });
+}

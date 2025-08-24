@@ -1,15 +1,18 @@
 import { type FormEvent, useEffect, useRef, useState } from 'react';
 import { effectFunction } from '../../utils/useEffectFunction.ts';
 import { InputUncontrolled } from './Elements/InputUncontrolled.tsx';
-import { SelectUncontrolled } from './Elements/SelectUncontrolled.tsx';
 import styles from '../../styles/form.module.css';
 import { fullSchema } from '../../utils/schema/baseSchema.ts';
 import { z, ZodError } from 'zod';
+import { AutocompleteCountry } from './Elements/AutocompleteCountry/AutocompleteCountry.tsx';
+import { useDispatch } from 'react-redux';
+import { setSubmittedUncontrolledData } from '../../store/slice/uncontrolledSlice.ts';
 
 export function UncontrolledForm({
   closeWindow,
   whichOpen,
 }: UncontrolledFormProps) {
+  const dispatch = useDispatch();
   const modalRef = useRef<HTMLFormElement>(null);
   const submitRef = useRef<HTMLButtonElement>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
@@ -19,11 +22,8 @@ export function UncontrolledForm({
   );
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
     const formData = new FormData(event.currentTarget);
     const data = Object.fromEntries(formData.entries());
-    console.log(data['password confirmation']);
-    console.log(data['country']);
     const normalized = {
       ...data,
       gender: data.gender || '',
@@ -36,6 +36,7 @@ export function UncontrolledForm({
     try {
       const validatedData = fullSchema.parse(normalized);
       closeWindow();
+      dispatch(setSubmittedUncontrolledData(validatedData));
       return { success: true, data: validatedData };
     } catch (error) {
       if (!(error instanceof ZodError)) {
@@ -97,7 +98,13 @@ export function UncontrolledForm({
         password={false}
         error={fieldErrors['upload file']}
       />
-      <SelectUncontrolled />
+      <AutocompleteCountry
+        label="Country"
+        id="country"
+        name="country"
+        defaultValue=""
+        error={fieldErrors['country']}
+      />
       <button type="submit" ref={submitRef} className={styles.submit}>
         Submit
       </button>

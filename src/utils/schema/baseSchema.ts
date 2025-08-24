@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { initialState } from '../../store/slice/countriesSlice.ts';
 
 export const baseSchema = z.object({
   name: z
@@ -24,7 +25,18 @@ export const baseSchema = z.object({
   'accept Terms and Conditions': z.boolean().refine((val) => val === true, {
     message: 'You must accept the terms and conditions',
   }),
-  country: z.string().min(1, 'Please select a country'),
+  country: z
+    .string()
+    .min(1, 'Please select a country')
+    .refine(
+      (value) => {
+        const countries = initialState.countries;
+        return validateCountry(value, countries);
+      },
+      {
+        message: 'Please select a valid country from the list',
+      }
+    ),
   'upload file': z
     .any()
     .refine((files) => files && files.length > 0, {
@@ -88,3 +100,7 @@ export const fullSchema = z
   );
 export type PasswordFormData = z.infer<typeof passwordSchema>;
 export type FullSchemaData = z.infer<typeof fullSchema>;
+
+const validateCountry = (value: string, countries: string[]): boolean => {
+  return countries.includes(value);
+};

@@ -68,4 +68,3 @@ const inputTypes: Record<InputElementProps['label'], string> = {
   gender: 'radio',
   'accept Terms and Conditions': 'checkbox',
 };
-

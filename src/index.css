@@ -71,3 +71,13 @@ button:hover {
 button:focus {
   background-color: #048804;
 }
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+button:hover:disabled {
+  background-color: #013501;
+}
+button:focus:disabled {
+  background-color: #013501;
+}
