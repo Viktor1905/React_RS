@@ -1,0 +1,37 @@
+.wrapper {
+    width: 70vw;
+    display: flex;
+    min-height: 40vh;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px 0 0 0;
+}
+.tile {
+    max-width: 500px;
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    text-align: start;
+
+}
+.tile > ul {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    list-style: none;
+}
+.tile > ul > li {
+    display: block;
+    flex-wrap: wrap;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 200px;
+    padding: 0 0 0 10px;
+}
+.rerender {
+    border: 2px solid red;
+    border-radius: 15px;
+}

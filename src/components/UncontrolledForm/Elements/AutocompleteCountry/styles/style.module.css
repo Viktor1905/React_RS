@@ -1,0 +1,23 @@
+.dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 150px;
+    overflow-y: auto;
+    background: white;
+    border: 1px solid #ccc;
+    z-index: 10;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.liElem{
+    padding: 4px 8px;
+    cursor: pointer;
+}
+.error {
+    color: red;
+    display: block;
+    width: 100%;
+}

@@ -1,0 +1,74 @@
+import type { UseFormRegisterReturn } from 'react-hook-form';
+import { capitalizeFirstLetter } from '../../../utils/capitalizeFirstLetter.ts';
+import styles from '../../../styles/form.module.css';
+export function InputControlled({
+  label,
+  register,
+  password,
+  placeholder,
+  errorMessage,
+}: InputElementProps) {
+  const type = password ? 'password' : inputTypes[label] || 'text';
+  const gender = label === 'gender';
+  if (gender) {
+    return (
+      <div className={styles.inputWrapper}>
+        <legend className={styles.bold}>{capitalizeFirstLetter(label)}:</legend>
+        <div className={styles.radioWrapper}>
+          <label htmlFor={'Male'}>Male:</label>
+          <input {...register} type={type} id={'Male'} value={'male'} />
+        </div>
+        <div className={styles.radioWrapper}>
+          <label htmlFor={'Female'}>Female: </label>
+          <input {...register} type={type} id={'Female'} value={'female'} />
+        </div>
+        {errorMessage && <span className={styles.error}>{errorMessage}</span>}
+      </div>
+    );
+  }
+  return (
+    <div
+      className={
+        type === 'checkbox' ? styles.radioWrapper : styles.inputWrapper
+      }
+    >
+      <label htmlFor={label} className={styles.bold}>
+        {capitalizeFirstLetter(label)}:{' '}
+      </label>
+      <input
+        aria-label={label}
+        {...register}
+        type={type}
+        placeholder={placeholder || ''}
+        data-testid={label === 'upload file' ? 'upload-file' : ''}
+      />
+      {errorMessage && <span className={styles.error}>{errorMessage}</span>}
+    </div>
+  );
+}
+
+type InputElementProps = {
+  label:
+    | 'name'
+    | 'email'
+    | 'password'
+    | 'age'
+    | 'password confirmation'
+    | 'upload file'
+    | 'gender'
+    | 'accept Terms and Conditions';
+  password: boolean;
+  placeholder?: string;
+  register: UseFormRegisterReturn;
+  errorMessage?: string;
+};
+const inputTypes: Record<InputElementProps['label'], string> = {
+  name: 'text',
+  email: 'email',
+  password: 'password',
+  'password confirmation': 'password',
+  age: 'number',
+  'upload file': 'file',
+  gender: 'radio',
+  'accept Terms and Conditions': 'checkbox',
+};
