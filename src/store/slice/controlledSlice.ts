@@ -32,5 +32,6 @@ const controlledSlice = createSlice({
 });
 
 export const { setSubmittedData } = controlledSlice.actions;
-
+export const selectSubmittedData = (state: { controlled: FormData }) =>
+  state.controlled;
 export default controlledSlice.reducer;

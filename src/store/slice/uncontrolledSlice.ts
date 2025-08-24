@@ -22,7 +22,7 @@ const initialState: FormData = {
 };
 
 const uncontrolledSlice = createSlice({
-  name: 'controlled',
+  name: 'uncontrolled',
   initialState,
   reducers: {
     setSubmittedUncontrolledData: (_, action: PayloadAction<FormData>) => {
@@ -32,5 +32,7 @@ const uncontrolledSlice = createSlice({
 });
 
 export const { setSubmittedUncontrolledData } = uncontrolledSlice.actions;
-
+export const selectSubmittedUncontrolledData = (state: {
+  uncontrolled: FormData;
+}) => state.uncontrolled;
 export default uncontrolledSlice.reducer;

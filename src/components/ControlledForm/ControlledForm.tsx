@@ -11,6 +11,7 @@ import {
 } from '../../utils/schema/baseSchema.ts';
 import { useDispatch } from 'react-redux';
 import { AutocompleteCountry } from './Elements/AutocompleteCountry/AutocompleteCountry.tsx';
+import { toBase64 } from '../../utils/toBase64.ts';
 
 export function ControlledForm({
   closeWindow,
@@ -37,9 +38,9 @@ export function ControlledForm({
       let fileData = null;
       if (data['upload file']?.[0]) {
         const file = data['upload file'][0];
-        const base64 = await toBase64(file);
+        const fileInfo = await toBase64(file);
         fileData = {
-          base64,
+          base64: fileInfo.base64,
           fileName: file.name,
           fileType: file.type,
         };
@@ -147,11 +148,3 @@ type ControlledFormProps = {
   closeWindow: () => void;
   whichOpen: string;
 };
-function toBase64(file: File): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = reject;
-  });
-}

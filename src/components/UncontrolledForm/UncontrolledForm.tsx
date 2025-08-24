@@ -7,6 +7,7 @@ import { z, ZodError } from 'zod';
 import { AutocompleteCountry } from './Elements/AutocompleteCountry/AutocompleteCountry.tsx';
 import { useDispatch } from 'react-redux';
 import { setSubmittedUncontrolledData } from '../../store/slice/uncontrolledSlice.ts';
+import { toBase64 } from '../ControlledForm/ControlledForm.tsx';
 
 export function UncontrolledForm({
   closeWindow,
@@ -20,24 +21,41 @@ export function UncontrolledForm({
     () => effectFunction('uncontrolled', modalRef, closeWindow, whichOpen),
     [whichOpen, closeWindow]
   );
-  function submit(event: FormEvent<HTMLFormElement>) {
+  async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const data = Object.fromEntries(formData.entries());
+    const files = formData
+      .getAll('upload file')
+      .filter((f): f is File => f instanceof File);
     const normalized = {
       ...data,
       gender: data.gender || '',
-      age: data.age, //
+      age: data.age,
       'accept Terms and Conditions':
         data['accept Terms and Conditions'] === 'on',
-      'upload file': formData.getAll('upload file'),
+      'upload file': files,
     };
 
     try {
       const validatedData = fullSchema.parse(normalized);
+      let fileData = null;
+      if (normalized['upload file']?.[0]) {
+        const file = normalized['upload file'][0];
+        const fileInfo = await toBase64(file);
+        fileData = {
+          base64: fileInfo.base64,
+          fileName: file.name,
+          fileType: file.type,
+        };
+      }
+      const cleanedData = {
+        ...validatedData,
+        ['upload file']: fileData,
+      };
       closeWindow();
-      dispatch(setSubmittedUncontrolledData(validatedData));
-      return { success: true, data: validatedData };
+      dispatch(setSubmittedUncontrolledData(cleanedData));
+      return { success: true, data: cleanedData };
     } catch (error) {
       if (!(error instanceof ZodError)) {
         console.log('Something went wrong', error);

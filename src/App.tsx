@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { ControlledForm } from './components/ControlledForm/ControlledForm.tsx';
 import { UncontrolledForm } from './components/UncontrolledForm/UncontrolledForm.tsx';
+import { Main } from './components/Main/Main.tsx';
 
 function App() {
   const [whichOpen, setWhichOpen] = useState('');
@@ -19,6 +20,7 @@ function App() {
           Open controlled form
         </button>
       </div>
+      <Main />
       {whichOpen &&
         createPortal(
           whichOpen === 'controlled' ? (
